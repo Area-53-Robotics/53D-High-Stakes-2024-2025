@@ -1,5 +1,10 @@
 name: Build PROS Project
 
+# The workflow will cancel previously running instances of the workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 # This GitHub workflow will be triggered when:
 on:
   # a change is pushed to the repository
