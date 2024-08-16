@@ -60,6 +60,10 @@ void competition_initialize() {}
  */
 void autonomous() {}
 
+float GetCurveOutput(int input) {
+    return (std::exp(-20/12.7)+std::exp((std::abs(input)-127)/12.7)*(1-std::exp(-20/12.7))) * input;
+}
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -83,8 +87,8 @@ void opcontrol() {
 		// Arcade control scheme
 		int left = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int right = master.get_analog(ANALOG_RIGHT_Y);  // Gets the turn left/right from right joystick
-		left_mg.move(left);                      // Sets left motor voltage
-		right_mg.move(right);                     // Sets right motor voltage
+		left_mg.move(GetCurveOutput(left));                      // Sets left motor voltage
+		right_mg.move(GetCurveOutput(right));                     // Sets right motor voltage
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
