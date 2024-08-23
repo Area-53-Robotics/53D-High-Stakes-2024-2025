@@ -73,7 +73,10 @@ void opcontrol(void);
 #ifdef __cplusplus
 /**
  * You can add C++-only headers here
+ 
  */
+ #include "subsystemHeaders/clamp.hpp"
+#include "global.hpp"
 //#include <iostream>
 #endif
 
