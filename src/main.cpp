@@ -65,6 +65,17 @@ float GetCurveOutput(int input) {
     return (std::exp(-20/12.7)+std::exp((std::abs(input)-127)/12.7)*(1-std::exp(-20/12.7))) * input;
 }
 
+void MotorAccelerationTest() {
+	std::cout << "Time, BLM, MLM, FLM, BRM, MRM, FRM" << std::endl;
+	unsigned int loopCount = 0;
+
+	while(true) {
+		std::cout << (loopCount * 20) << ", ";
+			
+		pros::delay(20);
+	}
+}
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -82,16 +93,14 @@ void opcontrol() {
 	pros::MotorGroup left_mg({-8, -9, -10});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
 	pros::MotorGroup right_mg({1, 2, 3});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 
-
 	while (true) {		      
 		// Arcade control scheme
 		int left = Controller.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int right = Controller.get_analog(ANALOG_RIGHT_Y);  // Gets the turn left/right from right joystick
 		left_mg.move(GetCurveOutput(left));                      // Sets left motor voltage
 		right_mg.move(GetCurveOutput(right));                     // Sets right motor voltage
-		pros::delay(20);                               // Run for 20 ms then update
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) PneumaticClamp();
-			
 
+		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
