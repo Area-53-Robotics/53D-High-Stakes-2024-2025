@@ -46,20 +46,10 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
-
-/**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
- */
-void autonomous() {}
+void competition_initialize() {
+    CreateMenuDropdown();
+    OpenAutonSelectMenu();
+}
 
 float GetCurveOutput(int input) {
     return (std::exp(-20/12.7)+std::exp((std::abs(input)-127)/12.7)*(1-std::exp(-20/12.7))) * input;
@@ -90,17 +80,23 @@ void MotorAccelerationTest() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::MotorGroup left_mg({-8, -9, -10});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
-	pros::MotorGroup right_mg({1, 2, 3});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
+    // CreateMenuDropdown();
+    // OpenAutonSelectMenu();
 
-	while (true) {		      
-		// Arcade control scheme
-		int left = Controller.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
-		int right = Controller.get_analog(ANALOG_RIGHT_Y);  // Gets the turn left/right from right joystick
-		left_mg.move(GetCurveOutput(left));                      // Sets left motor voltage
-		right_mg.move(GetCurveOutput(right));                     // Sets right motor voltage
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) PneumaticClamp();
+	while (true) {
+		// Tank control scheme
+		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
+		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y);  // Gets the turn left/right from right joystick
+		
+		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
+		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
+		
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(450);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
+		else IntakeMotor.brake();
 
-		pros::delay(20);                               // Run for 20 ms then update
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticClamp();
+
+		pros::delay(20); // Run for 20 ms then update
 	}
 }

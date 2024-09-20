@@ -71,11 +71,9 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-/**
- * You can add C++-only headers here
- 
- */
- #include "subsystemHeaders/clamp.hpp"
+#include "liblvgl/lvgl.h"
+#include "subsystemHeaders/clamp.hpp"
+#include "autonSelector.hpp"
 #include "global.hpp"
 //#include <iostream>
 #endif
