@@ -1,8 +1,4 @@
 #include "main.h"
-#include "liblvgl/extra/widgets/chart/lv_chart.h"
-#include "liblvgl/misc/lv_color.h"
-#include "pros/misc.h"
-#include "pros/rtos.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -162,7 +158,7 @@ void opcontrol() {
     // CreateMenuDropdown();
     // OpenAutonSelectMenu();
 
-	pros::Task my_task(chartTest, (void*)"PROS");
+	// pros::Task my_task(chartTest, (void*)"PROS");
 
 	while (true) {
 		// Tank control scheme
