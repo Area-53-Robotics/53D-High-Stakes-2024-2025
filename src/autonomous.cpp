@@ -1,5 +1,4 @@
 #include "main.h"
-
 std::vector<lv_obj_t *> AutonButtons;
 std::vector<Auton> AutonObjectList;
 
@@ -13,6 +12,14 @@ unsigned short int Auton::autonCount = 0;
     - autonDescription: String containing the description for the auton
     - autonRoutine: Function containing the actions to be performed in the auton
 */
+
+void moveDrivetrain(int power, int timeout){
+    left_mg.move(power);
+    right_mg.move(power);
+    pros::delay(timeout);
+    left_mg.brake();
+    right_mg.brake();
+} 
 Auton::Auton(const char * autonName, const char * autonDescription, std::function<void()> autonRoutine) {
     // Assigns the name of the auton to what the programmer enters
     name = autonName;
@@ -48,6 +55,8 @@ Auton rightQualsAuton(
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
+        moveDrivetrain(100,1000);
+
         Controller.print(0, 0, "The right auton");
         pros::delay(20);
     }
@@ -66,6 +75,8 @@ Auton pSkillsAuton(
 
 unsigned short int autonSelect = rightQualsAuton.autonNum;
 
+
+
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -79,4 +90,6 @@ unsigned short int autonSelect = rightQualsAuton.autonNum;
  */
 void autonomous() {
     AutonObjectList[autonSelect].routine();
+
+    
 }
