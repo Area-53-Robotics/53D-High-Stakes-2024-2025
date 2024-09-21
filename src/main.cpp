@@ -172,7 +172,7 @@ void opcontrol() {
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
 		
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(550);
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
 		else IntakeMotor.brake();
 
