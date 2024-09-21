@@ -7,10 +7,10 @@ pros::Controller Controller(pros::E_CONTROLLER_MASTER);
     Best Battery: 13
 */
 
-pros::MotorGroup left_mg({-8, -9, -10});
-pros::MotorGroup right_mg({1, 2, 3});
+pros::MotorGroup left_mg({-20, -18, -11});
+pros::MotorGroup right_mg({14, 13, 10});
 
-pros::Motor IntakeMotor(4);
+pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 
 pros::adi::DigitalOut ClampPistons(1);
 
