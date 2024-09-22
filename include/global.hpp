@@ -1,9 +1,18 @@
 #include "api.h"
+#include "lemlib/api.hpp"
 
 extern pros::Controller Controller;
 
 extern pros::MotorGroup left_mg;
 extern pros::MotorGroup right_mg;
+
+extern lemlib::ExpoDriveCurve throttle_curve;
+extern lemlib::ExpoDriveCurve steer_curve;
+extern lemlib::Drivetrain drivetrain;
+extern lemlib::ControllerSettings lateral_controller;
+extern lemlib::ControllerSettings angular_controller;
+extern lemlib::OdomSensors sensors;
+extern lemlib::Chassis chassis;
 
 extern pros::Motor IntakeMotor;
 

@@ -1,6 +1,4 @@
 #include "main.h"
-#include "lemlib/api.hpp"
-#include "pros/motor_group.hpp"
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
@@ -32,6 +30,7 @@ lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               360, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
 );
+
 lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               3, // derivative gain (kD)
@@ -53,6 +52,7 @@ lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
                                               0, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew) 
 );
+
 lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
                             nullptr, // horizontal tracking wheel 1
@@ -67,7 +67,6 @@ lemlib::Chassis chassis(drivetrain,
                         &throttle_curve, 
                         &steer_curve
 );
-
 
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 

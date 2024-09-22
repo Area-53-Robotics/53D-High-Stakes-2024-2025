@@ -1,4 +1,5 @@
 #include "main.h"
+
 std::vector<lv_obj_t *> AutonButtons;
 std::vector<Auton> AutonObjectList;
 
@@ -20,6 +21,7 @@ void moveDrivetrain(int power, int timeout){
     left_mg.brake();
     right_mg.brake();
 } 
+
 Auton::Auton(const char * autonName, const char * autonDescription, std::function<void()> autonRoutine) {
     // Assigns the name of the auton to what the programmer enters
     name = autonName;
