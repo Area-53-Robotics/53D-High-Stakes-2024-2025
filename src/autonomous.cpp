@@ -57,8 +57,9 @@ Auton rightQualsAuton(
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
-        moveDrivetrain(100,1000);
-
+      //  moveDrivetrain(100,1000);
+        chassis.setPose(0, 0, 0);
+        chassis.moveToPoint(0, 48, 10000);
         Controller.print(0, 0, "The right auton");
         pros::delay(20);
     }

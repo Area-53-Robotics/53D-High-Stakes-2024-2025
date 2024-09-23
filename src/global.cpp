@@ -1,4 +1,6 @@
+#include "lemlib/chassis/trackingWheel.hpp"
 #include "main.h"
+#include "pros/imu.hpp"
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
@@ -25,15 +27,15 @@ lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
 
 lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               &right_mg, // right motor group
-                              10, // 10 inch track width
-                              lemlib::Omniwheel::NEW_4, // using new 4" omnis
-                              360, // drivetrain rpm is 360
+                              11, // 10 inch track width
+                              lemlib::Omniwheel::NEW_325, // using new 4" omnis
+                            450, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(1, // proportional gain (kP) 10
                                               0, // integral gain (kI)
-                                              3, // derivative gain (kD)
+                                              0, // derivative gain (kD) 3
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -52,12 +54,13 @@ lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
                                               0, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew) 
 );
+pros::IMU imu(4);
 
 lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
                             nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
-                            nullptr // inertial sensor
+                            &imu   // inertial sensor
 );
 
 lemlib::Chassis chassis(drivetrain,

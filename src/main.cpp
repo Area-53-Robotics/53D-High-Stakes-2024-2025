@@ -175,5 +175,6 @@ void opcontrol() {
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticClamp();
 
 		pros::delay(20); // Run for 20 ms then update
+		autonomous();
 	}
 }
