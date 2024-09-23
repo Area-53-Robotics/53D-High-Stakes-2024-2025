@@ -23,7 +23,7 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	// pros::lcd::initialize();
+	pros::lcd::initialize();
 	// pros::lcd::set_text(1, "Hello PROS User!");
 
 	// pros::lcd::register_btn1_cb(on_center_button);
@@ -141,6 +141,16 @@ void chartTest(void * param) {
 
 }
 
+void PositionTrack(void * param) {
+	while(true) {
+		lemlib::Pose pose = chassis.getPose();
+		printf("X: %f, Y: %f, Theta: %f\n", pose.x, pose.y, pose.theta);
+		pros::lcd::print(0, "X (inches): %f", pose.x);
+		pros::lcd::print(1, "Y (inches): %f", pose.y);
+		pros::lcd::print(2, "Theta (degrees): %f", pose.theta);
+	}
+}
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -159,6 +169,8 @@ void opcontrol() {
     // OpenAutonSelectMenu();
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
+	pros::Task my_task(PositionTrack, (void*)"PROS");
+	autonomous();
 
 	while (true) {
 		// Tank control scheme
@@ -175,6 +187,5 @@ void opcontrol() {
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticClamp();
 
 		pros::delay(20); // Run for 20 ms then update
-		autonomous();
 	}
 }
