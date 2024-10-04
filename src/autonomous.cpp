@@ -21,6 +21,13 @@ void moveDrivetrain(int power, int timeout){
     left_mg.brake();
     right_mg.brake();
 } 
+void turnDrivetrain(int power, int timeout){
+    left_mg.move(-power);
+    right_mg.move(power);
+    pros::delay(timeout);
+    left_mg.brake();
+    right_mg.brake(); 
+}
 
 Auton::Auton(const char * autonName, const char * autonDescription, std::function<void()> autonRoutine) {
     // Assigns the name of the auton to what the programmer enters
@@ -57,9 +64,20 @@ Auton rightQualsAuton(
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
-      //  moveDrivetrain(100,1000);
-        chassis.setPose(0, 0, 0);
-        chassis.moveToPoint(0, 48, 10000);
+       moveDrivetrain(-100,226);
+       pros::delay(1000);
+       ClampPistons.set_value(1);
+       pros::delay(1000);
+       IntakeMotor.move(500);
+       pros::delay(1500);
+       turnDrivetrain(-125, 300);
+       pros::delay(1000);
+       moveDrivetrain(200,150);
+       IntakeMotor.move(500);
+       //ClampPistons.set_value(0);
+        //chassis.calibrate();
+        //chassis.setPose(2, 0, 0);
+        //chassis.moveToPoint(0, 48, 10000);
         Controller.print(0, 0, "The right auton");
         pros::delay(20);
     }

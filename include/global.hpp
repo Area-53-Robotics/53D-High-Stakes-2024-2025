@@ -17,6 +17,7 @@ extern lemlib::Chassis chassis;
 extern pros::Motor IntakeMotor;
 
 extern pros::adi::DigitalOut ClampPistons;
+extern pros::adi::DigitalOut ArmPistons;
 
 extern std::array<std::string,7> MotorNameList;
 extern std::array<pros::Motor*,1> MotorObjectList;

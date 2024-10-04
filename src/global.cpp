@@ -33,9 +33,9 @@ lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::ControllerSettings lateral_controller(1, // proportional gain (kP) 10
+lemlib::ControllerSettings lateral_controller(7, // proportional gain (kP) 10
                                               0, // integral gain (kI)
-                                              0, // derivative gain (kD) 3
+                                              3, // derivative gain (kD) 3
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -44,9 +44,9 @@ lemlib::ControllerSettings lateral_controller(1, // proportional gain (kP) 10
                                               0 // maximum acceleration (slew)
 );
 
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(0, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              10, // derivative gain (kD)
+                                              0, // derivative gain (kD)
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -74,6 +74,7 @@ lemlib::Chassis chassis(drivetrain,
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 
 pros::adi::DigitalOut ClampPistons(1);
+pros::adi::DigitalOut ArmPistons(2);
 
 std::array<std::string,7> MotorNameList = {"BL", "ML", "FL", "BR", "MR", "FR", "Intake"};
 std::array<pros::Motor*,1> MotorObjectList = {&IntakeMotor};

@@ -74,6 +74,7 @@ void opcontrol(void);
 #include "liblvgl/lvgl.h"
 #include "lemlib/api.hpp"
 #include "subsystemHeaders/clamp.hpp"
+#include "subsystemHeaders/clampArm.hpp"
 #include "autonSelector.hpp"
 #include "global.hpp"
 //#include <iostream>

@@ -1,4 +1,6 @@
 #include "main.h"
+#include "pros/misc.h"
+#include "pros/rtos.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -148,6 +150,7 @@ void PositionTrack(void * param) {
 		pros::lcd::print(0, "X (inches): %f", pose.x);
 		pros::lcd::print(1, "Y (inches): %f", pose.y);
 		pros::lcd::print(2, "Theta (degrees): %f", pose.theta);
+		pros::delay(20);
 	}
 }
 
@@ -170,7 +173,7 @@ void opcontrol() {
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task my_task(PositionTrack, (void*)"PROS");
-	autonomous();
+	//autonomous();
 
 	while (true) {
 		// Tank control scheme
@@ -184,7 +187,8 @@ void opcontrol() {
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
 		else IntakeMotor.brake();
 
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticClamp();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) PneumaticClamp();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticArm();
 
 		pros::delay(20); // Run for 20 ms then update
 	}
