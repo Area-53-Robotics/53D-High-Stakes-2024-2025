@@ -76,19 +76,25 @@ pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 pros::adi::DigitalOut ClampPistons(1);
 pros::adi::DigitalOut ArmPistons(2);
 
+// Array that stores strings representing the name of each motor
 std::array<std::string,7> MotorNameList = {"BL", "ML", "FL", "BR", "MR", "FR", "Intake"};
+// Array that stores pointers to all the independent motor objects
 std::array<pros::Motor*,1> MotorObjectList = {&IntakeMotor};
+// Array that stores pointers to all the motor groups
 std::array<pros::MotorGroup*,2> MotorGroupObjectList = {&left_mg, &right_mg};
 
 std::vector<int> MotorArraySizes;
 int motorCount = 0;
 
 void InitMotorArraySizes() {
+    // Obtain the number of motors in each motor group
     for(pros::MotorGroup* motorGroup : MotorGroupObjectList) {
         MotorArraySizes.push_back(motorGroup->size());
     }
+    // Obtain the number of independent motor objects
     MotorArraySizes.push_back(MotorObjectList.size());
 
+    // Accumulate the motor counts into one variable, representing the total number of motors
     for(int size : MotorArraySizes) {
         motorCount += size;
     }
