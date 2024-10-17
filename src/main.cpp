@@ -26,6 +26,7 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
+	RedirectMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	// pros::lcd::set_text(1, "Hello PROS User!");
 
 	// pros::lcd::register_btn1_cb(on_center_button);
@@ -182,13 +183,17 @@ void opcontrol() {
 		
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
+
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1))  RedirectMotor.move_velocity(127);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) RedirectMotor.move_velocity(-127);
+		else RedirectMotor.brake();
 		
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
 		else IntakeMotor.brake();
 
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) PneumaticClamp();
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticArm();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) PneumaticArm();
 
 		pros::delay(20); // Run for 20 ms then update
 	}

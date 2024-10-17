@@ -33,9 +33,9 @@ lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::ControllerSettings lateral_controller(7, // proportional gain (kP) 10
+lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP) 10
                                               0, // integral gain (kI)
-                                              3, // derivative gain (kD) 3
+                                              11, // derivative gain (kD) 3
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -44,9 +44,9 @@ lemlib::ControllerSettings lateral_controller(7, // proportional gain (kP) 10
                                               0 // maximum acceleration (slew)
 );
 
-lemlib::ControllerSettings angular_controller(0, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              0, // derivative gain (kD)
+                                              34, // derivative gain (kD)
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -54,7 +54,7 @@ lemlib::ControllerSettings angular_controller(0, // proportional gain (kP)
                                               0, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew) 
 );
-pros::IMU imu(4);
+pros::IMU imu(3);
 
 lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
@@ -72,6 +72,7 @@ lemlib::Chassis chassis(drivetrain,
 );
 
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
+pros:: Motor RedirectMotor(15,pros::v5::MotorGears::red);
 
 pros::adi::DigitalOut ClampPistons(1);
 pros::adi::DigitalOut ArmPistons(2);

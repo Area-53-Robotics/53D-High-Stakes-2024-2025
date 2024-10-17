@@ -64,7 +64,7 @@ Auton rightQualsAuton(
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
-       moveDrivetrain(-100,226);
+      /* moveDrivetrain(-100,226);
        pros::delay(1000);
        ClampPistons.set_value(1);
        pros::delay(1000);
@@ -74,10 +74,11 @@ Auton rightQualsAuton(
        pros::delay(1000);
        moveDrivetrain(200,150);
        IntakeMotor.move(500);
-       //ClampPistons.set_value(0);
-        //chassis.calibrate();
-        //chassis.setPose(2, 0, 0);
-        //chassis.moveToPoint(0, 48, 10000);
+       //ClampPistons.set_value(0); */
+        chassis.calibrate();
+        chassis.setPose(0, 0, 0);
+        chassis.moveToPoint(0, 48, 10000);
+        // chassis.turnToHeading(90, 2000);
         Controller.print(0, 0, "The right auton");
         pros::delay(20);
     }

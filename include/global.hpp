@@ -15,6 +15,7 @@ extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;
 
 extern pros::Motor IntakeMotor;
+extern pros::Motor RedirectMotor;
 
 extern pros::adi::DigitalOut ClampPistons;
 extern pros::adi::DigitalOut ArmPistons;
