@@ -1,6 +1,4 @@
 #include "main.h"
-#include "pros/misc.h"
-#include "pros/rtos.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -150,8 +148,26 @@ void PositionTrack(void * param) {
 		pros::lcd::print(0, "X (inches): %f", pose.x);
 		pros::lcd::print(1, "Y (inches): %f", pose.y);
 		pros::lcd::print(2, "Theta (degrees): %f", pose.theta);
+		pros::lcd::print(3, "RedirectIntake: %d`", intakeRedirecting);
 		pros::delay(20);
 	}
+}
+
+void RedirectIntake(void* param) {
+	if (intakeRedirecting) {
+		while(true) {
+			if(RedirectSwitch.get_new_press()) break;
+			else {
+				IntakeMotor.move_velocity(-300);
+				pros::delay(20);
+			}
+			pros::delay(20);
+		}
+		IntakeMotor.move(127);
+		pros::delay(2000);
+		intakeRedirecting = false;
+	}
+	pros::delay(10);
 }
 
 /**
@@ -173,6 +189,7 @@ void opcontrol() {
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task my_task(PositionTrack, (void*)"PROS");
+	pros::Task my_task2(RedirectIntake, (void*)"PROS");
 	//autonomous();
 
 	while (true) {
@@ -183,9 +200,11 @@ void opcontrol() {
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
 		
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
-		else IntakeMotor.brake();
+		// if(!intakeRedirecting) {
+			if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
+			else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
+			else IntakeMotor.brake();
+		// }
 
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) PneumaticClamp();
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) PneumaticArm();

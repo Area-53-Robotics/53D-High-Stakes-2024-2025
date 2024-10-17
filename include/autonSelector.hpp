@@ -46,3 +46,5 @@ extern void OpenKeybindMenu();
 // Notes Menu
 extern lv_obj_t * notesScr;
 extern void OpenNotesMenu();
+extern lv_obj_t * teamSelectRect;
+extern void CreateTeamSelectRectangle();

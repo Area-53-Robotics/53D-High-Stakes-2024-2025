@@ -16,6 +16,8 @@ extern lemlib::Chassis chassis;
 
 extern pros::Motor IntakeMotor;
 
+extern pros::adi::DigitalIn RedirectSwitch;
+
 extern pros::adi::DigitalOut ClampPistons;
 extern pros::adi::DigitalOut ArmPistons;
 
@@ -55,4 +57,5 @@ extern Auton rightQualsAuton;
 extern Auton pSkillsAuton;
 
 extern bool driveReversed;
+extern bool intakeRedirecting;
 extern void ControllerDisplay();

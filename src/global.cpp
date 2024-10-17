@@ -73,6 +73,8 @@ lemlib::Chassis chassis(drivetrain,
 
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 
+pros::adi::DigitalIn RedirectSwitch('A');
+
 pros::adi::DigitalOut ClampPistons(1);
 pros::adi::DigitalOut ArmPistons(2);
 
@@ -101,6 +103,7 @@ void InitMotorArraySizes() {
 }
 
 bool driveReversed = false;
+bool intakeRedirecting = false;
 
 void ControllerDisplay() {
     if(!driveReversed) Controller.print(0, 0, "Reversed: false");
