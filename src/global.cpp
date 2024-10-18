@@ -74,7 +74,7 @@ lemlib::Chassis chassis(drivetrain,
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 pros:: Motor RedirectMotor(15,pros::v5::MotorGears::red);
 
-pros::adi::DigitalIn RedirectSwitch('A');
+pros::adi::DigitalIn RedirectSwitch('H');
 
 pros::adi::DigitalOut ClampPistons(1);
 pros::adi::DigitalOut ArmPistons(2);

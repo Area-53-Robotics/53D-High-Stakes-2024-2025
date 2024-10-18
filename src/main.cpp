@@ -207,8 +207,10 @@ void opcontrol() {
 		
 		// if(!intakeRedirecting) {
 			if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
-			else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
+			//else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
+			else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
 			else IntakeMotor.brake();
+			
 		// }
 
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
