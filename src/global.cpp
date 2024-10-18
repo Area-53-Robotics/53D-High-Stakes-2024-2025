@@ -70,12 +70,13 @@ lemlib::Chassis chassis(drivetrain,
                         &throttle_curve, 
                         &steer_curve
 );
-
+//Declares the intake motor and sets it to port 9
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 pros:: Motor RedirectMotor(15,pros::v5::MotorGears::red);
 
-pros::adi::DigitalIn RedirectSwitch('H');
+pros::adi::DigitalIn RedirectSwitch('C');
 
+//Declares the clamp piston and sets it to adi port A
 pros::adi::DigitalOut ClampPistons(1);
 pros::adi::DigitalOut ArmPistons(2);
 

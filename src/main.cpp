@@ -206,13 +206,14 @@ void opcontrol() {
 		else RedirectMotor.brake();
 		
 		// if(!intakeRedirecting) {
+		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
 			if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
-			//else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
-			else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
+			else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
+			//else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
 			else IntakeMotor.brake();
-			
-		// }
-
+				//	
+				// }
+		// sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) PneumaticArm();
 
