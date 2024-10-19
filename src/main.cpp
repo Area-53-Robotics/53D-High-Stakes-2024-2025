@@ -155,20 +155,25 @@ void PositionTrack(void * param) {
 }
 
 void RedirectIntake(void* param) {
-	if (intakeRedirecting) {
-		while(true) {
-			if(RedirectSwitch.get_new_press()) break;
-			else {
-				IntakeMotor.move_velocity(-300);
+	while(true) {
+		if (intakeRedirecting) {
+			while(true) {
+				if(RedirectSwitch.get_new_press()) break;
+				else {
+					IntakeMotor.move(127);
+					pros::delay(20);
+				}
 				pros::delay(20);
 			}
+			IntakeMotor.brake();
+			Controller.rumble("---");
 			pros::delay(20);
+			IntakeMotor.move_relative(-100, 600);
+			pros::delay(2000);
+			intakeRedirecting = false;
 		}
-		IntakeMotor.move(127);
-		pros::delay(2000);
-		intakeRedirecting = false;
+		pros::delay(10);
 	}
-	pros::delay(10);
 }
 
 /**
