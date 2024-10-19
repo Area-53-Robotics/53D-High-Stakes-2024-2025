@@ -211,15 +211,15 @@ void opcontrol() {
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
 
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1))  RedirectMotor.move_velocity(127);
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) RedirectMotor.move_velocity(127);
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) RedirectMotor.move_velocity(-127);
 		else RedirectMotor.brake();
 		
 		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !intakeRedirecting) IntakeMotor.move_velocity(600);
-		else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = !intakeRedirecting;
-		//else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
-		else if (!intakeRedirecting) IntakeMotor.brake();
+		// else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = !intakeRedirecting;
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !intakeRedirecting) IntakeMotor.move_velocity(-600);
+		else if(!intakeRedirecting) IntakeMotor.brake();
 
 		// sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();

@@ -73,7 +73,7 @@ Auton rightQualsAuton(
        pros::delay(1500);
        turnDrivetrain(-100, 300);
        pros::delay(1000);
-       moveDrivetrain(200,150);
+       moveDrivetrain(200,175);
        IntakeMotor.move(500);
        //ClampPistons.set_value(0); */
        // chassis.calibrate();
