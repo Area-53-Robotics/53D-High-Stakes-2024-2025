@@ -20,7 +20,8 @@ void moveDrivetrain(int power, int timeout){
     pros::delay(timeout);
     left_mg.brake();
     right_mg.brake();
-} 
+}
+
 void turnDrivetrain(int power, int timeout){
     left_mg.move(-power);
     right_mg.move(power);
@@ -47,16 +48,16 @@ Auton::Auton(const char * autonName, const char * autonDescription, std::functio
     AutonObjectList.push_back(*this);
 }
 
-Auton leftQualsAuton(
-	"Left Quals",
-	"Last Updated: N/A\n"
-	"-----------------------------------------------------\n"
-	"The Left Auton\n",
-	[]() -> void {
-        Controller.print(0, 0, "Left Quals Start");
-        pros::delay(20);
-    }
-);
+// Auton leftQualsAuton(
+// 	"Left Quals",
+// 	"Last Updated: N/A\n"
+// 	"-----------------------------------------------------\n"
+// 	"The Left Auton\n",
+// 	[]() -> void {
+//         Controller.print(0, 0, "Left Quals Start");
+//         pros::delay(20);
+//     }
+// );
 
 Auton rightQualsAuton(
 	"Right Quals",
@@ -84,16 +85,16 @@ Auton rightQualsAuton(
     }
 );
 
-Auton pSkillsAuton(
-	"P-Skills",
-	"Last Updated: N/A\n"
-	"-----------------------------------------------------\n"
-	"The Programming Skills Auton\n",
-	[]() -> void {
-        Controller.print(0, 0, "The P-Skills auton");
-        pros::delay(20);
-    }
-);
+// Auton pSkillsAuton(
+// 	"P-Skills",
+// 	"Last Updated: N/A\n"
+// 	"-----------------------------------------------------\n"
+// 	"The Programming Skills Auton\n",
+// 	[]() -> void {
+//         Controller.print(0, 0, "The P-Skills auton");
+//         pros::delay(20);
+//     }
+// );
 
 unsigned short int autonSelect = rightQualsAuton.autonNum;
 
@@ -112,6 +113,4 @@ unsigned short int autonSelect = rightQualsAuton.autonNum;
  */
 void autonomous() {
     AutonObjectList[autonSelect].routine();
-
-    
 }

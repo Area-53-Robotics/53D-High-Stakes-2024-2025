@@ -159,17 +159,22 @@ void RedirectIntake(void* param) {
 		if (intakeRedirecting) {
 			while(true) {
 				if(RedirectSwitch.get_new_press()) break;
+				else if (!intakeRedirecting) break;
 				else {
-					IntakeMotor.move(127);
-					pros::delay(20);
+					IntakeMotor.move_velocity(200);
 				}
 				pros::delay(20);
 			}
 			IntakeMotor.brake();
-			Controller.rumble("---");
-			pros::delay(20);
-			IntakeMotor.move_relative(-100, 600);
-			pros::delay(2000);
+			Controller.rumble("-");
+		}
+		if (intakeRedirecting) {
+			for(int i = 0; i <= 1000; i += 20) {
+				if (!intakeRedirecting) break;
+				IntakeMotor.move_velocity(-300);
+				pros::delay(20);
+			}
+			IntakeMotor.brake();
 			intakeRedirecting = false;
 		}
 		pros::delay(10);
@@ -210,14 +215,12 @@ void opcontrol() {
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) RedirectMotor.move_velocity(-127);
 		else RedirectMotor.brake();
 		
-		// if(!intakeRedirecting) {
 		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
-			if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
-			else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = true;
-			//else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
-			else IntakeMotor.brake();
-				//	
-				// }
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !intakeRedirecting) IntakeMotor.move_velocity(600);
+		else if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = !intakeRedirecting;
+		//else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move(-127);
+		else if (!intakeRedirecting) IntakeMotor.brake();
+
 		// sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) PneumaticArm();
