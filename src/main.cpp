@@ -24,7 +24,6 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	RedirectMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	// pros::lcd::set_text(1, "Hello PROS User!");
 
 	// pros::lcd::register_btn1_cb(on_center_button);
@@ -54,48 +53,6 @@ void competition_initialize() {
 
 float GetCurveOutput(int input) {
     return (std::exp(-20/12.7)+std::exp((std::abs(input)-127)/12.7)*(1-std::exp(-20/12.7))) * input;
-}
-
-void MotorAccelerationTest(void * param) {
-	lv_obj_t * chart;
-    chart = lv_chart_create(lv_scr_act());
-	lv_chart_set_type(chart, LV_CHART_TYPE_LINE);
-	lv_chart_set_update_mode(chart, LV_CHART_UPDATE_MODE_SHIFT);
-	lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_Y, 0, 200);
-    lv_obj_set_size(chart, 300, 225);
-    lv_obj_center(chart);
-
-    // lv_obj_add_event_cb(chart, event_cb, LV_EVENT_ALL, NULL);
-    lv_obj_refresh_ext_draw_size(chart);
-
-    /*Zoom in a little in X*/
-    // lv_chart_set_zoom_x(chart, 800);
-
-    /*Add two data series*/
-    lv_chart_series_t * BLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * MLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_ORANGE), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * FLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_YELLOW), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * BRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_GREEN), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * MRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_BLUE), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * FRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_PURPLE), LV_CHART_AXIS_PRIMARY_Y);
-
-	// std::cout << "Time, BLM, MLM, FLM, BRM, MRM, FRM" << std::endl;
-
-	int loopCount = 0;
-
-	while(true){
-		lv_chart_set_next_value2(chart, BLMser, loopCount * 20, left_mg.get_temperature(0));
-		lv_chart_set_next_value2(chart, MLMser, loopCount * 20, left_mg.get_temperature(1));
-		lv_chart_set_next_value2(chart, FLMser, loopCount * 20, left_mg.get_temperature(2));
-		lv_chart_set_next_value2(chart, BRMser, loopCount * 20, right_mg.get_temperature(0));
-		lv_chart_set_next_value2(chart, MRMser, loopCount * 20, right_mg.get_temperature(1));
-		lv_chart_set_next_value2(chart, FRMser, loopCount * 20, right_mg.get_temperature(2));
-		lv_chart_set_next_value2(chart, FRMser, loopCount * 20, 120);
-
-		lv_chart_refresh(chart);
-		loopCount++;
-		pros::delay(20);
-	}
 }
 
 void chartTest(void * param) {
@@ -149,35 +106,7 @@ void PositionTrack(void * param) {
 		pros::lcd::print(0, "X (inches): %f", pose.x);
 		pros::lcd::print(1, "Y (inches): %f", pose.y);
 		pros::lcd::print(2, "Theta (degrees): %f", pose.theta);
-		pros::lcd::print(3, "RedirectIntake: %d`", intakeRedirecting);
 		pros::delay(20);
-	}
-}
-
-void RedirectIntake(void* param) {
-	while(true) {
-		if (intakeRedirecting) {
-			while(true) {
-				if(RedirectSwitch.get_new_press()) break;
-				else if (!intakeRedirecting) break;
-				else {
-					IntakeMotor.move_velocity(200);
-				}
-				pros::delay(20);
-			}
-			IntakeMotor.brake();
-			Controller.rumble("-");
-		}
-		if (intakeRedirecting) {
-			for(int i = 0; i <= 1000; i += 20) {
-				if (!intakeRedirecting) break;
-				IntakeMotor.move_velocity(-300);
-				pros::delay(20);
-			}
-			IntakeMotor.brake();
-			intakeRedirecting = false;
-		}
-		pros::delay(10);
 	}
 }
 
@@ -200,8 +129,7 @@ void opcontrol() {
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task my_task(PositionTrack, (void*)"PROS");
-	pros::Task my_task2(RedirectIntake, (void*)"PROS");
-	//autonomous();
+	// autonomous();
 
 	while (true) {
 		// Tank control scheme
@@ -215,19 +143,14 @@ void opcontrol() {
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(20);
 		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP) & (pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(70);
 		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) Rotation.set_position(Rotation.reset_position());
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) RedirectMotor.move_velocity(127);
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) RedirectMotor.move_velocity(-127);
-		else RedirectMotor.brake();
 		
 		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !intakeRedirecting) IntakeMotor.move_velocity(600);
-		// else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) intakeRedirecting = !intakeRedirecting;
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !intakeRedirecting) IntakeMotor.move_velocity(-600);
-		else if(!intakeRedirecting) IntakeMotor.brake();
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-600);
+		else IntakeMotor.brake();
 
 		// sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) PneumaticArm();
 
 		pros::delay(20); // Run for 20 ms then update
 	}

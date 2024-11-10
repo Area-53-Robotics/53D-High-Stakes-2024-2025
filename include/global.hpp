@@ -15,12 +15,9 @@ extern lemlib::OdomSensors sensors;
 extern lemlib::Chassis chassis;
 
 extern pros::Motor IntakeMotor;
-extern pros::Motor RedirectMotor;
 
-extern pros::adi::DigitalIn RedirectSwitch;
 extern pros::Rotation Rotation;
 extern pros::adi::DigitalOut ClampPistons;
-extern pros::adi::DigitalOut ArmPistons;
 
 extern std::array<std::string,7> MotorNameList;
 extern std::array<pros::Motor*,1> MotorObjectList;
@@ -53,10 +50,5 @@ class Auton {
 extern std::vector<lv_obj_t *> AutonButtons;
 extern std::vector<Auton> AutonObjectList;
 
-extern Auton leftQualsAuton;
-extern Auton rightQualsAuton;
-extern Auton pSkillsAuton;
-
 extern bool driveReversed;
-extern bool intakeRedirecting;
 extern void ControllerDisplay();

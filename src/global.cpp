@@ -12,18 +12,14 @@ pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 pros::MotorGroup left_mg({-20, -18, -11});
 pros::MotorGroup right_mg({14, 13, 10});
 
-// input curve for throttle input during driver control
-lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
-                                     10, // minimum output where drivetrain will move out of 127
-                                     1.019 // expo curve gain
-);
+pros::IMU imu(3);
 
-// input curve for steer input during driver control
-lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
-                                  10, // minimum output where drivetrain will move out of 127
-                                  1.019 // expo curve gain
-);
+// Declares the intake motor and sets it to port 9
+pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
+pros::Rotation Rotation(4);
 
+// Declares the clamp piston and sets it to adi port A
+pros::adi::DigitalOut ClampPistons(1);
 
 lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               &right_mg, // right motor group
@@ -54,7 +50,6 @@ lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
                                               0, // large error range timeout, in milliseconds
                                               0 // maximum acceleration (slew) 
 );
-pros::IMU imu(3);
 
 lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
@@ -67,19 +62,9 @@ lemlib::Chassis chassis(drivetrain,
                         lateral_controller,
                         angular_controller,
                         sensors,
-                        &throttle_curve, 
-                        &steer_curve
+                        nullptr, 
+                        nullptr
 );
-//Declares the intake motor and sets it to port 9
-pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
-pros:: Motor RedirectMotor(15,pros::v5::MotorGears::red);
-pros::Rotation Rotation(4);
-
-pros::adi::DigitalIn RedirectSwitch('C');
-
-//Declares the clamp piston and sets it to adi port A
-pros::adi::DigitalOut ClampPistons(1);
-pros::adi::DigitalOut ArmPistons(2);
 
 // Array that stores strings representing the name of each motor
 std::array<std::string,7> MotorNameList = {"BL", "ML", "FL", "BR", "MR", "FR", "Intake"};
@@ -96,6 +81,7 @@ void InitMotorArraySizes() {
     for(pros::MotorGroup* motorGroup : MotorGroupObjectList) {
         MotorArraySizes.push_back(motorGroup->size());
     }
+
     // Obtain the number of independent motor objects
     MotorArraySizes.push_back(MotorObjectList.size());
 
@@ -106,7 +92,6 @@ void InitMotorArraySizes() {
 }
 
 bool driveReversed = false;
-bool intakeRedirecting = false;
 
 void ControllerDisplay() {
     if(!driveReversed) Controller.print(0, 0, "Reversed: false");
