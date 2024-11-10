@@ -210,7 +210,11 @@ void opcontrol() {
 		
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
-
+		
+		Rotation.get_position();
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(20);
+		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP) & (pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(70);
+		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) Rotation.set_position(Rotation.reset_position());
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) RedirectMotor.move_velocity(127);
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) RedirectMotor.move_velocity(-127);
 		else RedirectMotor.brake();

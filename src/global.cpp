@@ -73,6 +73,7 @@ lemlib::Chassis chassis(drivetrain,
 //Declares the intake motor and sets it to port 9
 pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
 pros:: Motor RedirectMotor(15,pros::v5::MotorGears::red);
+pros::Rotation Rotation(4);
 
 pros::adi::DigitalIn RedirectSwitch('C');
 
