@@ -1,31 +1,26 @@
-#include "lemlib/chassis/trackingWheel.hpp"
 #include "main.h"
-#include "pros/imu.hpp"
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
-/*
-    Dead Ports: 5, 16, 17 (last updated 12/1/23)
-    Best Battery: 13
-*/
+pros::MotorGroup left_mg({-7, -8, -10});
+pros::MotorGroup right_mg({14, 16, 17});
 
-pros::MotorGroup left_mg({-20, -18, -11});
-pros::MotorGroup right_mg({14, 13, 10});
+pros::MotorGroup LadyBrownMotors({-19, 20});
 
 pros::IMU imu(3);
+pros::Rotation Rotation(18);
 
 // Declares the intake motor and sets it to port 9
-pros::Motor IntakeMotor(9, pros::v5::MotorGears::blue);
-pros::Rotation Rotation(4);
+pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
 
-// Declares the clamp piston and sets it to adi port A
-pros::adi::DigitalOut ClampPistons(1);
+// Declares the clamp piston and sets it to adi port G
+pros::adi::DigitalOut ClampPistons('G');
 
 lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               &right_mg, // right motor group
                               11, // 10 inch track width
                               lemlib::Omniwheel::NEW_325, // using new 4" omnis
-                            450, // drivetrain rpm is 360
+                              450, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
 );
 

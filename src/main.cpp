@@ -128,7 +128,9 @@ void opcontrol() {
     // OpenAutonSelectMenu();
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
-	pros::Task my_task(PositionTrack, (void*)"PROS");
+	// pros::Task my_task(PositionTrack, (void*)"PROS");
+	pros::Task my_task(LadybrownTask, (void*)"PROS");
+
 	// autonomous();
 
 	while (true) {
@@ -139,10 +141,13 @@ void opcontrol() {
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
 		
-		Rotation.get_position();
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(20);
-		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP) & (pros::E_CONTROLLER_DIGITAL_UP)) Rotation.set_position(70);
-		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) Rotation.set_position(Rotation.reset_position());
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+			LadybrownSwitch(true);
+			my_task.notify();
+		} else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+			LadybrownSwitch(false);
+			my_task.notify();
+		} 
 		
 		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
