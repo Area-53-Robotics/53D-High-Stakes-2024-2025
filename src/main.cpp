@@ -136,26 +136,31 @@ void opcontrol() {
 	while (true) {
 		// Tank control scheme
 		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
-		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y);  // Gets the turn left/right from right joystick
+		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y); // Gets the turn left/right from right joystick
 		
 		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
 		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
 		
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
 			LadybrownSwitch(true);
 			my_task.notify();
-		} else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+		} else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
 			LadybrownSwitch(false);
 			my_task.notify();
-		} 
+		}
 		
-		// if-else statement that move the intake motor positive when R2 is pressed and negative when R1 is pressed. 
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(600);
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-600);
+		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(400);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-400);
 		else IntakeMotor.brake();
 
-		// sets the clamp to operate in driver control after pressing the A button
+		// Sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
+
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+			driveReversed = !driveReversed;
+			ControllerDisplay();
+		}
 
 		pros::delay(20); // Run for 20 ms then update
 	}

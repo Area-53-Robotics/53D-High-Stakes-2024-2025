@@ -2,10 +2,10 @@
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
-pros::MotorGroup left_mg({-7, -8, -10});
-pros::MotorGroup right_mg({14, 16, 17});
+pros::MotorGroup left_mg({-7, -9, -10});
+pros::MotorGroup right_mg({15, 14, 17});
 
-pros::MotorGroup LadyBrownMotors({-19, 20});
+pros::MotorGroup LadyBrownMotors({19, -20});
 
 pros::IMU imu(3);
 pros::Rotation Rotation(18);
