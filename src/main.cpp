@@ -47,8 +47,8 @@ void disabled() {}
  */
 void competition_initialize() {
 	InitMotorArraySizes();
-    CreateMenuDropdown();
-    OpenAutonSelectMenu();
+    // CreateMenuDropdown();
+    // OpenAutonSelectMenu();
 }
 
 float GetCurveOutput(int input) {

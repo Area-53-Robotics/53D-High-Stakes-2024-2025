@@ -1,8 +1,9 @@
 #include "main.h"
+#include "pros/abstract_motor.hpp"
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
-pros::MotorGroup left_mg({-7, -9, -10});
+pros::MotorGroup left_mg({-7, -9, -10}, pros::v5::MotorGears::blue);
 pros::MotorGroup right_mg({15, 14, 17});
 
 pros::MotorGroup LadyBrownMotors({19, -20});

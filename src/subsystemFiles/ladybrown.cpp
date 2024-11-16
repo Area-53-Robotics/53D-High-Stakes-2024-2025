@@ -16,8 +16,6 @@ void LadybrownSwitch(bool increase) {
         if (ladybrownPosition > 1) ladybrownPosition--;
         else ladybrownPosition = 3;
     }
-
-
 }
 
 void LadybrownTask(void * param) {
@@ -58,7 +56,7 @@ void LadybrownTask(void * param) {
         ladybrownAngle = Rotation.get_angle() / 100.0;
         error = targetAngle - ladybrownAngle;
 
-        while((std::abs(error) > 0.00001) && (timeout < 10000)) {
+        while((std::abs(error) > 0.01) && (timeout < 10000)) {
             switch(ladybrownPosition) {
                 case 1:
                     targetAngle = position1;
