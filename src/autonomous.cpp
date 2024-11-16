@@ -123,4 +123,5 @@ unsigned short int autonSelect = rightQualsAuton.autonNum;
 void autonomous() {
 	pros::Task my_task(LadybrownTask, (void*)"PROS");
     AutonObjectList[autonSelect].routine();
+    my_task.remove();
 }

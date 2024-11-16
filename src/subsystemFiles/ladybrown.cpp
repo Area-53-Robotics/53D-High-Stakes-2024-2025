@@ -17,7 +17,7 @@ void LadybrownSwitch(bool increase) {
         else ladybrownPosition = 3;
     }
 
-    
+
 }
 
 void LadybrownTask(void * param) {
@@ -29,7 +29,7 @@ void LadybrownTask(void * param) {
     short int power;
 
     const float position1 = 360;
-    const float position2 = 330.00;
+    const float position2 = 324.00;
     const float position3 = 209.47;
 
     const float kP = 150;
