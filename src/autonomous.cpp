@@ -58,14 +58,23 @@ Auton::Auton(const char * autonName, const char * autonDescription, std::functio
 //         pros::delay(20);
 //     }
 // );
-
+Auton leftQualsAuton(
+	"Left Quals",
+	"Last Updated: N/A\n"
+	"-----------------------------------------------------\n"
+	"The Left Auton\n",
+	[]() -> void {
+        moveDrivetrain(100, 270);
+        LadybrownSwitch(true);
+    }
+    );
 Auton rightQualsAuton(
 	"Right Quals",
 	"Last Updated: N/A\n"
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
-       moveDrivetrain(-100,260);
+       moveDrivetrain(-100,230);
        pros::delay(1000);
        ClampPistons.set_value(1);
        pros::delay(1000);
@@ -112,5 +121,6 @@ unsigned short int autonSelect = rightQualsAuton.autonNum;
  * from where it left off.
  */
 void autonomous() {
+	pros::Task my_task(LadybrownTask, (void*)"PROS");
     AutonObjectList[autonSelect].routine();
 }

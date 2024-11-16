@@ -129,7 +129,7 @@ void opcontrol() {
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	// pros::Task my_task(PositionTrack, (void*)"PROS");
-	pros::Task my_task(LadybrownTask, (void*)"PROS");
+	pros::Task my_task = pros::Task::current();
 
 	// autonomous();
 

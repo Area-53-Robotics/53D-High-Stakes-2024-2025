@@ -16,6 +16,8 @@ void LadybrownSwitch(bool increase) {
         if (ladybrownPosition > 1) ladybrownPosition--;
         else ladybrownPosition = 3;
     }
+
+    
 }
 
 void LadybrownTask(void * param) {
