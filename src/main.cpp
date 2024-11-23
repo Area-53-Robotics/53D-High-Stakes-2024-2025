@@ -24,6 +24,7 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
+	chassis.calibrate();
 	// pros::lcd::set_text(1, "Hello PROS User!");
 
 	// pros::lcd::register_btn1_cb(on_center_button);
@@ -106,7 +107,7 @@ void PositionTrack(void * param) {
 		pros::lcd::print(0, "X (inches): %f", pose.x);
 		pros::lcd::print(1, "Y (inches): %f", pose.y);
 		pros::lcd::print(2, "Theta (degrees): %f", pose.theta);
-		pros::delay(20);
+		pros::delay(100);
 	}
 }
 
@@ -128,10 +129,10 @@ void opcontrol() {
     // OpenAutonSelectMenu();
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
-	// pros::Task my_task(PositionTrack, (void*)"PROS");
-	pros::Task my_task(LadybrownTask, (void*)"PROS");
+	pros::Task my_task(PositionTrack, (void*)"PROS");
+	// pros::Task my_task(LadybrownTask, (void*)"PROS");
 
-	// autonomous();
+	autonomous();
 
 	while (true) {
 		// Tank control scheme

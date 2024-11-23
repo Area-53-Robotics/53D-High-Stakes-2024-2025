@@ -8,8 +8,11 @@ pros::MotorGroup right_mg({15, 14, 17});
 
 pros::MotorGroup LadyBrownMotors({19, -20});
 
-pros::IMU imu(3);
+pros::IMU imu(4);
 pros::Rotation Rotation(18);
+pros::Rotation vertical_encoder(1);
+lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 0);
+
 
 // Declares the intake motor and sets it to port 9
 pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
@@ -25,9 +28,11 @@ lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP) 10
+
+
+lemlib::ControllerSettings lateral_controller(0, // proportional gain (kP) 10
                                               0, // integral gain (kI)
-                                              11, // derivative gain (kD) 3
+                                              0, // derivative gain (kD) 3
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -36,9 +41,9 @@ lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP) 10
                                               0 // maximum acceleration (slew)
 );
 
-lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(2.52, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              34, // derivative gain (kD)
+                                              14, // derivative gain (kD)
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds
@@ -47,7 +52,7 @@ lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
                                               0 // maximum acceleration (slew) 
 );
 
-lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
+lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
                             nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one

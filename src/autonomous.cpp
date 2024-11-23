@@ -63,8 +63,10 @@ Auton leftQualsAuton(
 	"Last Updated: N/A\n"
 	"-----------------------------------------------------\n"
 	"The Left Auton\n",
-	[]() -> void {
-        moveDrivetrain(-100,225);
+	[]() -> void {   
+        chassis.setPose(0, 0, 0);
+        chassis.moveToPoint(0, 48, 10000);
+        /*moveDrivetrain(-100,225);
         pros::delay(1000);
         ClampPistons.set_value(1);
         pros::delay(1000);
@@ -76,7 +78,7 @@ Auton leftQualsAuton(
         pros::delay(1000);
         IntakeMotor.move(-500);
         pros::delay(1500);
-        IntakeMotor.brake();
+        IntakeMotor.brake(); */
     }
 );
 
@@ -120,7 +122,25 @@ Auton rightQualsAuton(
 //     }
 // );
 
-unsigned short int autonSelect = leftQualsAuton.autonNum;
+
+
+Auton lemLibAuton(
+	"P-Skills",
+	"Last Updated: N/A\n"
+	"-----------------------------------------------------\n"
+	"The Programming Skills Auton\n",
+	[]() -> void {
+        Controller.print(0, 0, "The P-Skills auton");
+        chassis.setPose(0, 0, 180);
+        chassis.moveToPoint(0, 24, 10000);
+        // chassis.turnToHeading(180, 100000);
+        pros::delay(20);
+    }
+);
+
+
+
+unsigned short int autonSelect = lemLibAuton.autonNum;
 
 
 
