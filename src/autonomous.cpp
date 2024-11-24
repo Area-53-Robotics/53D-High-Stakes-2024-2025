@@ -131,8 +131,8 @@ Auton lemLibAuton(
 	"The Programming Skills Auton\n",
 	[]() -> void {
         Controller.print(0, 0, "The P-Skills auton");
-        chassis.setPose(0, 0, 180);
-        chassis.moveToPoint(0, 24, 10000);
+        chassis.setPose(0, 0, 0);
+        chassis.moveToPoint(0, 36, 10000);
         // chassis.turnToHeading(180, 100000);
         pros::delay(20);
     }

@@ -1,16 +1,15 @@
 #include "main.h"
-#include "pros/abstract_motor.hpp"
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
 pros::MotorGroup left_mg({-7, -9, -10}, pros::v5::MotorGears::blue);
-pros::MotorGroup right_mg({15, 14, 17});
+pros::MotorGroup right_mg({15, 14, 17}, pros::v5::MotorGears::blue);
 
 pros::MotorGroup LadyBrownMotors({19, -20});
 
 pros::IMU imu(4);
 pros::Rotation Rotation(18);
-pros::Rotation vertical_encoder(1);
+pros::Rotation vertical_encoder(2);
 lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 0);
 
 
@@ -30,9 +29,9 @@ lemlib::Drivetrain drivetrain(&left_mg, // left motor group
 
 
 
-lemlib::ControllerSettings lateral_controller(0, // proportional gain (kP) 10
+lemlib::ControllerSettings lateral_controller(13, // proportional gain (kP) 10
                                               0, // integral gain (kI)
-                                              0, // derivative gain (kD) 3
+                                              90, // derivative gain (kD) 3
                                               0, // anti windup
                                               0, // small error range, in inches
                                               0, // small error range timeout, in milliseconds

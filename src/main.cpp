@@ -129,8 +129,8 @@ void opcontrol() {
     // OpenAutonSelectMenu();
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
-	pros::Task my_task(PositionTrack, (void*)"PROS");
-	// pros::Task my_task(LadybrownTask, (void*)"PROS");
+	pros::Task position_track_task(PositionTrack, (void*)"PROS");
+	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
 
 	autonomous();
 
@@ -139,15 +139,15 @@ void opcontrol() {
 		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
 		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y); // Gets the turn left/right from right joystick
 		
-		left_mg.move(GetCurveOutput(LYAxis)); // Sets left motor voltage
-		right_mg.move(GetCurveOutput(RYAxis)); // Sets right motor voltage
+		left_mg.move(LYAxis); // Sets left motor voltage
+		right_mg.move(RYAxis); // Sets right motor voltage
 		
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
 			LadybrownSwitch(true);
-			my_task.notify();
+			ladybrown_task.notify();
 		} else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
 			LadybrownSwitch(false);
-			my_task.notify();
+			ladybrown_task.notify();
 		}
 		
 		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.

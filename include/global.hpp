@@ -10,6 +10,9 @@ extern pros::MotorGroup LadyBrownMotors;
 
 extern pros::IMU imu;
 extern pros::Rotation Rotation;
+extern pros::Rotation vertical_encoder;
+extern lemlib::TrackingWheel vertical_tracking_wheel;
+
 
 extern pros::Motor IntakeMotor;
 
