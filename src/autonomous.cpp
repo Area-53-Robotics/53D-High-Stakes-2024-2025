@@ -66,7 +66,8 @@ Auton leftQualsAuton(
 	[]() -> void {   
         chassis.setPose(0, 0, 0);
         chassis.moveToPoint(0, 48, 10000);
-        /*moveDrivetrain(-100,225);
+        /*
+        moveDrivetrain(-100,225);
         pros::delay(1000);
         ClampPistons.set_value(1);
         pros::delay(1000);
@@ -78,7 +79,8 @@ Auton leftQualsAuton(
         pros::delay(1000);
         IntakeMotor.move(-500);
         pros::delay(1500);
-        IntakeMotor.brake(); */
+        IntakeMotor.brake();
+        */
     }
 );
 
@@ -111,6 +113,37 @@ Auton rightQualsAuton(
     }
 );
 
+Auton rightQualsAuton2(
+	"Right Auton 2",
+	"Last Updated: N/A\n"
+	"-----------------------------------------------------\n"
+	"The Right Side Auton 2: Electric Boogaloo\n",
+	[]() -> void {
+        pros::Task my_task(LadybrownTask, (void*)"PROS");
+        Controller.print(0, 0, "The Right Side Auton 2");
+        chassis.setPose(12, -54, 231.99);
+        chassis.moveToPoint(5, -59.5, 5000);
+        pros::delay(500);
+        ladybrownPosition = 3;
+        my_task.notify();
+        pros::delay(1000);
+        ladybrownPosition = 1;
+        my_task.notify();
+        pros::delay(500);
+        chassis.moveToPoint(22, -26, 2000, {.forwards = false, .maxSpeed = 80}, false);
+        pros::delay(500);
+        ClampPistons.set_value(1);
+        pros::delay(200);
+        chassis.moveToPose(48, -24, 40, 3000, {.forwards = true, .maxSpeed = 90});
+        IntakeMotor.move(-127);
+        pros::delay(4000);
+        chassis.moveToPose(46, -8, 10, 5000, {.forwards = true, .maxSpeed = 90});
+        IntakeMotor.move(-127);
+        pros::delay(4000);
+        my_task.remove();
+    }
+);
+
 // Auton pSkillsAuton(
 // 	"P-Skills",
 // 	"Last Updated: N/A\n"
@@ -140,7 +173,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = lemLibAuton.autonNum;
+unsigned short int autonSelect = rightQualsAuton2.autonNum;
 
 
 
@@ -156,7 +189,5 @@ unsigned short int autonSelect = lemLibAuton.autonNum;
  * from where it left off.
  */
 void autonomous() {
-	pros::Task my_task(LadybrownTask, (void*)"PROS");
     AutonObjectList[autonSelect].routine();
-    my_task.remove();
 }

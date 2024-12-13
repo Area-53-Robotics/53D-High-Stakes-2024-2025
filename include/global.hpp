@@ -6,10 +6,10 @@ extern pros::Controller Controller;
 extern pros::MotorGroup left_mg;
 extern pros::MotorGroup right_mg;
 
-extern pros::MotorGroup LadyBrownMotors;
+extern pros::MotorGroup LadybrownMotors;
 
 extern pros::IMU imu;
-extern pros::Rotation Rotation;
+extern pros::Rotation LadybrownRotation;
 extern pros::Rotation vertical_encoder;
 extern lemlib::TrackingWheel vertical_tracking_wheel;
 

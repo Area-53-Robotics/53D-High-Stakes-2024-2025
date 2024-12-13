@@ -130,7 +130,11 @@ void opcontrol() {
 
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task position_track_task(PositionTrack, (void*)"PROS");
+
+	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
+
+	chassis.setPose(12, -54, 231.99);
 
 	autonomous();
 
@@ -142,11 +146,17 @@ void opcontrol() {
 		left_mg.move(LYAxis); // Sets left motor voltage
 		right_mg.move(RYAxis); // Sets right motor voltage
 		
+		// When the L1 controller button is pressed...
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+			// increase the ladybrown position by 1
 			LadybrownSwitch(true);
+			// notify the ladybrown mechanism to move to the new target position
 			ladybrown_task.notify();
+		// When the L2 controller button is pressed...
 		} else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+			// decrease the ladybrown position by 1
 			LadybrownSwitch(false);
+			// notify the ladybrown mechanism to move to the new target position
 			ladybrown_task.notify();
 		}
 		
