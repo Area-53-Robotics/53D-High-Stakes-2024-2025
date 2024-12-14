@@ -134,9 +134,7 @@ void opcontrol() {
 	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
 
-	chassis.setPose(12, -54, 231.99);
-
-	autonomous();
+	// autonomous();
 
 	while (true) {
 		// Tank control scheme

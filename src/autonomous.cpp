@@ -122,24 +122,42 @@ Auton rightQualsAuton2(
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         Controller.print(0, 0, "The Right Side Auton 2");
         chassis.setPose(12, -54, 231.99);
-        chassis.moveToPoint(5, -59.5, 5000);
-        pros::delay(500);
+        chassis.moveToPoint(5, -59.5, 1000, {.forwards = true}, false);
         ladybrownPosition = 3;
         my_task.notify();
-        pros::delay(1000);
+        pros::delay(800);
         ladybrownPosition = 1;
         my_task.notify();
-        pros::delay(500);
-        chassis.moveToPoint(22, -26, 2000, {.forwards = false, .maxSpeed = 80}, false);
-        pros::delay(500);
+        chassis.moveToPoint(22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(250);
         ClampPistons.set_value(1);
         pros::delay(200);
-        chassis.moveToPose(48, -24, 40, 3000, {.forwards = true, .maxSpeed = 90});
+        chassis.moveToPose(48, -24, 40, 2250, {.forwards = true, .maxSpeed = 90});
         IntakeMotor.move(-127);
-        pros::delay(4000);
-        chassis.moveToPose(46, -8, 10, 5000, {.forwards = true, .maxSpeed = 90});
+        pros::delay(3250);
+        chassis.moveToPose(45, -11, 365, 2500, {.forwards = true, .maxSpeed = 90});
         IntakeMotor.move(-127);
-        pros::delay(4000);
+        pros::delay(250);
+
+        /*
+        chassis.moveToPoint(48, -24, 2250, {.forwards = true, .maxSpeed = 90});
+        IntakeMotor.move(-127);
+        pros::delay(3250);
+        */
+
+        chassis.moveToPose(4, -46, 270, 4000, {.forwards = true, .maxSpeed = 90});
+        IntakeMotor.move(-127);
+        pros::delay(1700);
+        ClampPistons.set_value(0);
+        IntakeMotor.move(127);
+        pros::delay(200);
+        IntakeMotor.move(-127);
+        pros::delay(5000);
+        chassis.moveToPose(-4, -46, 270, 5000, {.forwards = true, .maxSpeed = 110});
+        IntakeMotor.move(-127);
+        pros::delay(1000);
+        /*
+        */
         my_task.remove();
     }
 );
