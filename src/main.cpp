@@ -131,7 +131,7 @@ void opcontrol() {
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task position_track_task(PositionTrack, (void*)"PROS");
 
-	// if(!pros::competition::is_connected()) autonomous();
+	if(!pros::competition::is_connected()) autonomous();
 
 	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
@@ -141,8 +141,8 @@ void opcontrol() {
 		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
 		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y); // Gets the turn left/right from right joystick
 		
-		if (abs(LYAxis) > 10) left_mg.move(LYAxis); // Sets left motor voltage
-		if (abs(RYAxis) > 10) right_mg.move(RYAxis); // Sets right motor voltage
+		left_mg.move(LYAxis); // Sets left motor voltage
+		right_mg.move(RYAxis); // Sets right motor voltage
 		
 		// When the L1 controller button is pressed...
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
