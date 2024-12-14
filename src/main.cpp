@@ -134,7 +134,7 @@ void opcontrol() {
 	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
 
-	// autonomous();
+	// if(!pros::competition::is_connected()) autonomous();
 
 	while (true) {
 		// Tank control scheme
@@ -159,8 +159,8 @@ void opcontrol() {
 		}
 		
 		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(400);
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-400);
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(500);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-500);
 		else IntakeMotor.brake();
 
 		// Sets the clamp to operate in driver control after pressing the A button
