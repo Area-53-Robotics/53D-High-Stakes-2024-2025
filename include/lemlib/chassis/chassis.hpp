@@ -343,8 +343,8 @@ class Chassis {
          *
          * @example main.cpp
          */
-        Chassis(Drivetrain drivetrain,  ControllerSettings linearSettings, ControllerSettings angularSettings,
-                OdomSensors sensors,  DriveCurve* throttleCurve = &defaultDriveCurve,
+        Chassis(Drivetrain drivetrain, ControllerSettings linearSettings, ControllerSettings angularSettings,
+                OdomSensors sensors, DriveCurve* throttleCurve = &defaultDriveCurve,
                 DriveCurve* steerCurve = &defaultDriveCurve);
         /**
          * @brief Calibrate the chassis sensors. THis should be called in the initialize function
@@ -709,12 +709,11 @@ class Chassis {
          */
         void follow(const asset& path, float lookahead, int timeout, bool forwards = true, bool async = true);
         /**
-         * @brief Control the robot during the driver using the arcade drive control scheme. In this control scheme one
-         * joystick axis controls the forwards and backwards movement of the robot, while the other joystick axis
-
-         * controls  the robot's turning
-         * @param throttle speed to move forward or backward. Takes an input from -127 to 127.
-         * @param turn speed to turn. Takes an input from -127 to 127.
+         * @brief Control the robot during the driver using the tank drive control scheme. In this control scheme one
+         * joystick axis controls the left motors' forward and backwards movement of the robot, while the other joystick
+         * axis controls right motors' forward and backward movement.
+         * @param left speed to move left wheels forward or backward. Takes an input from -127 to 127.
+         * @param right speed to move right wheels forward or backward. Takes an input from -127 to 127.
          * @param disableDriveCurve whether to disable the drive curve or not. If disabled, uses a linear curve with no
          * deadzone or minimum power
          *
