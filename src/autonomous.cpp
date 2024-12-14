@@ -278,7 +278,7 @@ Auton pSkillsAuton(
         Controller.print(0, 0, "The P-Skills auton");
 
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
 
         chassis.setPose(-4, -54, 180);
 
@@ -291,7 +291,7 @@ Auton pSkillsAuton(
         // Pick up mobile goal
         chassis.moveToPoint(24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
-        IntakeSpeed = -127;
+        IntakeMotor.move(-127);
 
         chassis.moveToPoint(24, -24, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
@@ -300,7 +300,7 @@ Auton pSkillsAuton(
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
         chassis.moveToPoint(48, -60, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
-        IntakeSpeed = 0;
+        IntakeMotor.brake();
         chassis.moveToPose(60, -60, 315, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
         
@@ -309,7 +309,7 @@ Auton pSkillsAuton(
         // Pick up mobile goal
         chassis.moveToPoint(-24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
-        IntakeSpeed = -127;
+        IntakeMotor.move(-127);
 
         chassis.moveToPoint(-24, -24, 2000, {.forwards = true, .maxSpeed = 90}, false);
         chassis.moveToPoint(-48, -24, 2000, {.forwards = true, .maxSpeed = 90}, false);
@@ -317,7 +317,7 @@ Auton pSkillsAuton(
         chassis.moveToPoint(-48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
         chassis.moveToPoint(-48, -60, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
-        IntakeSpeed = 0;
+        IntakeMotor.brake();
         chassis.moveToPose(-60, -60, 315, 2000, {.forwards = true, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
 
@@ -361,5 +361,69 @@ unsigned short int autonSelect = pSkillsAuton.autonNum;
  * from where it left off.
  */
 void autonomous() {
-    AutonObjectList[autonSelect].routine();
+    // AutonObjectList[autonSelect].routine();
+        // Pre-Auton Stuff
+        pros::Task my_task(LadybrownTask, (void*)"PROS");
+        Controller.print(0, 0, "The Right Side Auton 2");
+        chassis.setPose(-12, -54, 128.01);
+
+        // Alliance Stake Scoring
+        chassis.moveToPoint(-5, -59.5, 1000, {.forwards = true}, false);
+        ladybrownPosition = 3;
+        my_task.notify();
+        pros::delay(800);
+        ladybrownPosition = 1;
+        my_task.notify();
+
+        // Pick up 1st mobile goal
+        chassis.moveToPoint(-22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(250);
+        ClampPistons.set_value(1);
+        pros::delay(200);
+
+        // Pick up lone ring stack
+        chassis.moveToPose(-48, -24, 320, 2250, {.forwards = true, .maxSpeed = 110});
+        IntakeMotor.move(-127);
+        pros::delay(3250);
+
+        // Pick up left ring stack
+        chassis.moveToPose(-45, -11, 35, 2500, {.forwards = true, .maxSpeed = 110});
+        IntakeMotor.move(-127);
+        pros::delay(250);
+
+        // ! AWP Alt: Go for bar
+        ladybrownPosition = 3;
+        my_task.notify();
+        chassis.moveToPose(24, -12, 315, 2000);
+
+        /*
+        // Start moving towards start position ring stack
+        chassis.moveToPose(-4, -46, 90, 3500, {.forwards = true, .maxSpeed = 127});
+        IntakeMotor.move(-127);
+        pros::delay(700);
+        IntakeMotor.brake();
+        pros::delay(800);
+        IntakeMotor.move(-127);
+
+        // Drop 1st mobile goal
+        ClampPistons.set_value(0);
+        IntakeMotor.move(-127);
+        pros::delay(200);
+        IntakeMotor.move(-127);
+        pros::delay(3000);
+
+        // Pick up blue ring from start position ring stack
+        chassis.moveToPose(8, -46, 90, 5000, {.forwards = true, .maxSpeed = 110});
+        IntakeMotor.move(-127);
+        pros::delay(200);
+
+        chassis.moveToPoint(24, -24, 2000, {.forwards = false, .maxSpeed = 90});
+        ClampPistons.set_value(1);
+        IntakeMotor.move(-127);
+        ladybrownPosition = 3;
+        my_task.notify();
+        chassis.moveToPoint(18, -18, 2000, {.forwards = false, .maxSpeed = 110});
+        */
+
+        my_task.remove();
 }
