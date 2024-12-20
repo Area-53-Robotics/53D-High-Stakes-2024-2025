@@ -345,7 +345,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = leftQualsAuton.autonNum;
+unsigned short int autonSelect = blueQualsAuton.autonNum;
 
 
 

@@ -2,14 +2,14 @@
 
 pros::Controller Controller(pros::E_CONTROLLER_MASTER);
 
-pros::MotorGroup left_mg({-7, -9, -10}, pros::v5::MotorGears::blue);
+pros::MotorGroup left_mg({-7, -9, -11}, pros::v5::MotorGears::blue);
 pros::MotorGroup right_mg({15, 14, 17}, pros::v5::MotorGears::blue);
 
 pros::MotorGroup LadybrownMotors({19, -20});
 
 pros::IMU imu(4);
 pros::Rotation LadybrownRotation(18);
-pros::Rotation vertical_encoder(2);
+pros::Rotation vertical_encoder(1);
 lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 0);
 
 

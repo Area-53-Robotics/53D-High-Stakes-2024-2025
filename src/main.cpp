@@ -131,7 +131,7 @@ void opcontrol() {
 	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task position_track_task(PositionTrack, (void*)"PROS");
 
-	if(!pros::competition::is_connected()) autonomous();
+	// if(!pros::competition::is_connected()) autonomous();
 
 	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
