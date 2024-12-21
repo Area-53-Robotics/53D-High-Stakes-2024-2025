@@ -1,6 +1,5 @@
 #include "main.h"
 
-std::vector<lv_obj_t *> AutonButtons;
 std::vector<Auton> AutonObjectList;
 
 unsigned short int Auton::autonCount = 0;
@@ -52,8 +51,6 @@ Auton::Auton(const char * autonName, const char * autonDescription, std::functio
     // Increments the count of current autons
     autonCount += 1;
 
-    // Initializes a new button for the auton on the auton selector
-    AutonButtons.push_back(new lv_obj_t);
     // Adds the new auton object to the list of created auton objects
     AutonObjectList.push_back(*this);
 }
@@ -145,19 +142,19 @@ Auton blueQualsAuton(
 
         // Pick up 1st mobile goal
         chassis.moveToPoint(22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
-        pros::delay(250);
+        pros::delay(50);
         ClampPistons.set_value(1);
-        pros::delay(200);
+        pros::delay(50);
 
         // Pick up lone ring stack
-        chassis.moveToPose(48, -24, 40, 2250, {.forwards = true, .maxSpeed = 110});
+        chassis.moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeSpeed = -127;
-        pros::delay(3250);
+        pros::delay(3000);
 
         // Pick up left ring stack
-        chassis.moveToPose(45, -11, 325, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
-        pros::delay(250);
+        chassis.moveToPose(45, -11, 325, 1200, {.forwards = true, .maxSpeed = 110});
+        pros::delay(1200);
+        IntakeSpeed = 0;
 
         /*
         // ! AWP Alt: Go for bar
@@ -167,7 +164,7 @@ Auton blueQualsAuton(
         */
 
         // Start moving towards start position ring stack
-        chassis.moveToPose(4, -46, 270, 3500, {.forwards = true, .maxSpeed = 127});
+        chassis.moveToPose(4, -46, 270, 4000, {.forwards = true, .maxSpeed = 127});
         IntakeSpeed = -127;
         pros::delay(700);
         IntakeSpeed = 0;
@@ -177,18 +174,17 @@ Auton blueQualsAuton(
         // Drop 1st mobile goal
         ClampPistons.set_value(0);
         IntakeSpeed = -127;
-        pros::delay(200);
-        IntakeSpeed = -127;
-        pros::delay(3000);
+        pros::delay(2700);
 
         // Pick up blue ring from start position ring stack
         chassis.moveToPose(-8, -46, 270, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
-        pros::delay(200);
+        pros::delay(400);
+        IntakeSpeed = 0;
 
         chassis.moveToPoint(-26, -22, 2000, {.forwards = false, .maxSpeed = 70}, false);
         ClampPistons.set_value(1);
         IntakeSpeed = -127;
+        chassis.moveToPose(-20, -20, 45, 1000);
         // chassis.moveToPoint(-18, -18, 2000, {.forwards = false, .maxSpeed = 110});
 
         my_task.remove();
@@ -218,19 +214,19 @@ Auton redQualsAuton(
 
         // Pick up 1st mobile goal
         chassis.moveToPoint(-22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
-        pros::delay(250);
+        pros::delay(50);
         ClampPistons.set_value(1);
-        pros::delay(200);
+        pros::delay(50);
 
         // Pick up lone ring stack
-        chassis.moveToPose(-48, -24, 320, 2250, {.forwards = true, .maxSpeed = 110});
+        chassis.moveToPose(-48, -24, 320, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeSpeed = -127;
-        pros::delay(3250);
+        pros::delay(3000);
 
         // Pick up left ring stack
-        chassis.moveToPose(-45, -11, 35, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
-        pros::delay(250);
+        chassis.moveToPose(-45, -11, 35, 1200, {.forwards = true, .maxSpeed = 110});
+        pros::delay(1200);
+        IntakeSpeed = 0;
 
         /*
         // ! AWP Alt: Go for bar
@@ -240,7 +236,7 @@ Auton redQualsAuton(
         */
 
         // Start moving towards start position ring stack
-        chassis.moveToPose(-4, -46, 90, 3500, {.forwards = true, .maxSpeed = 127});
+        chassis.moveToPose(-4, -46, 90, 4000, {.forwards = true, .maxSpeed = 127});
         IntakeSpeed = -127;
         pros::delay(700);
         IntakeSpeed = 0;
@@ -250,18 +246,17 @@ Auton redQualsAuton(
         // Drop 1st mobile goal
         ClampPistons.set_value(0);
         IntakeSpeed = -127;
-        pros::delay(200);
-        IntakeSpeed = -127;
-        pros::delay(3000);
+        pros::delay(2700);
 
         // Pick up blue ring from start position ring stack
         chassis.moveToPose(8, -46, 90, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
-        pros::delay(200);
+        pros::delay(400);
+        IntakeSpeed = 0;
 
         chassis.moveToPoint(26, -22, 2000, {.forwards = false, .maxSpeed = 70}, false);
         ClampPistons.set_value(1);
         IntakeSpeed = -127;
+        chassis.moveToPose(20, -20, 325, 1000);
         // chassis.moveToPoint(18, -18, 2000, {.forwards = false, .maxSpeed = 110});
 
         my_task.remove();

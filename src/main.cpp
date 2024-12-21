@@ -56,50 +56,6 @@ float GetCurveOutput(int input) {
     return (std::exp(-20/12.7)+std::exp((std::abs(input)-127)/12.7)*(1-std::exp(-20/12.7))) * input;
 }
 
-void chartTest(void * param) {
-	/*Create a chart*/
-    lv_obj_t * chart;
-    chart = lv_chart_create(lv_scr_act());
-    lv_obj_set_size(chart, 400, 190);
-    lv_obj_center(chart);
-    lv_chart_set_type(chart, LV_CHART_TYPE_LINE);   /*Show lines and points too*/
-	// lv_chart_set_update_mode(chart, LV_CHART_UPDATE_MODE_SHIFT);
-	// lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_X, 0, 100);
-	lv_chart_set_point_count(chart, 100);
-	lv_chart_set_axis_tick(chart, LV_CHART_AXIS_PRIMARY_X, 10, 5, 6, 2, true, 50);
-	lv_chart_set_axis_tick(chart, LV_CHART_AXIS_PRIMARY_Y, 10, 5, 6, 2, true, 50);
-	lv_chart_set_zoom_x(chart, 125);
-
-    /*Add two data series*/
-    lv_chart_series_t * BLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * MLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_ORANGE), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * FLMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_YELLOW), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * BRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_GREEN), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * MRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_BLUE), LV_CHART_AXIS_PRIMARY_Y);
-    lv_chart_series_t * FRMser = lv_chart_add_series(chart, lv_palette_main(LV_PALETTE_PURPLE), LV_CHART_AXIS_PRIMARY_Y);
-
-	int loopCount = 0;
-
-    /*Set the next points on 'ser1'*/
-	while(true) {
-		lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_Y, 0, loopCount + 10);
-		// lv_chart_set_point_count(chart, loopCount);
-
-    	lv_chart_set_next_value(chart, BLMser, loopCount);
-    	lv_chart_set_next_value(chart, MLMser, loopCount - 1);
-    	lv_chart_set_next_value(chart, FLMser, loopCount - 2);
-    	lv_chart_set_next_value(chart, BRMser, loopCount);
-    	lv_chart_set_next_value(chart, MRMser, loopCount);
-    	lv_chart_set_next_value(chart, FRMser, loopCount);
-
-		loopCount++;
-    	lv_chart_refresh(chart); /*Required after direct set*/
-		lv_obj_refresh_ext_draw_size(chart);
-		pros::delay(20);
-	}
-
-}
-
 void PositionTrack(void * param) {
 	while(true) {
 		lemlib::Pose pose = chassis.getPose();
@@ -128,7 +84,6 @@ void opcontrol() {
     // CreateMenuDropdown();
     // OpenAutonSelectMenu();
 
-	// pros::Task my_task(chartTest, (void*)"PROS");
 	pros::Task position_track_task(PositionTrack, (void*)"PROS");
 
 	// if(!pros::competition::is_connected()) autonomous();

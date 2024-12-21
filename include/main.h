@@ -71,11 +71,9 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-#include "liblvgl/lvgl.h"
 #include "lemlib/api.hpp"
 #include "subsystemHeaders/clamp.hpp"
 #include "subsystemHeaders/ladybrown.hpp"
-#include "autonSelector.hpp"
 #include "global.hpp"
 //#include <iostream>
 #endif

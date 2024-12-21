@@ -53,7 +53,6 @@ class Auton {
         Auton(const char * autonName, const char * autonDescription, std::function<void()> autonRoutine);
 };
 
-extern std::vector<lv_obj_t *> AutonButtons;
 extern std::vector<Auton> AutonObjectList;
 
 extern Auton leftQualsAuton;
