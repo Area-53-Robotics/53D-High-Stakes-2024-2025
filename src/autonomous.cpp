@@ -131,6 +131,7 @@ Auton blueQualsAuton(
 	[]() -> void {
         // Pre-Auton Stuff
         pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(12, -54, 231.99);
 
@@ -150,12 +151,12 @@ Auton blueQualsAuton(
 
         // Pick up lone ring stack
         chassis.moveToPose(48, -24, 40, 2250, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(3250);
 
         // Pick up left ring stack
         chassis.moveToPose(45, -11, 325, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(250);
 
         /*
@@ -167,32 +168,31 @@ Auton blueQualsAuton(
 
         // Start moving towards start position ring stack
         chassis.moveToPose(4, -46, 270, 3500, {.forwards = true, .maxSpeed = 127});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(700);
-        IntakeMotor.brake();
+        IntakeSpeed = 0;
         pros::delay(800);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
 
         // Drop 1st mobile goal
         ClampPistons.set_value(0);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(200);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(3000);
 
         // Pick up blue ring from start position ring stack
-        chassis.moveToPose(-8, -46, 270, 5000, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        chassis.moveToPose(-8, -46, 270, 2500, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = -127;
         pros::delay(200);
 
-        chassis.moveToPoint(-24, -24, 2000, {.forwards = false, .maxSpeed = 90});
+        chassis.moveToPoint(-26, -22, 2000, {.forwards = false, .maxSpeed = 70}, false);
         ClampPistons.set_value(1);
-        IntakeMotor.move(-127);
-        ladybrownPosition = 3;
-        my_task.notify();
-        chassis.moveToPoint(-18, -18, 2000, {.forwards = false, .maxSpeed = 110});
+        IntakeSpeed = -127;
+        // chassis.moveToPoint(-18, -18, 2000, {.forwards = false, .maxSpeed = 110});
 
         my_task.remove();
+        my_task2.remove();
     }
 );
 
@@ -204,6 +204,7 @@ Auton redQualsAuton(
 	[]() -> void {
         // Pre-Auton Stuff
         pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Red Side Auton");
         chassis.setPose(-12, -54, 128.01);
 
@@ -223,12 +224,12 @@ Auton redQualsAuton(
 
         // Pick up lone ring stack
         chassis.moveToPose(-48, -24, 320, 2250, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(3250);
 
         // Pick up left ring stack
         chassis.moveToPose(-45, -11, 35, 2500, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(250);
 
         /*
@@ -240,32 +241,31 @@ Auton redQualsAuton(
 
         // Start moving towards start position ring stack
         chassis.moveToPose(-4, -46, 90, 3500, {.forwards = true, .maxSpeed = 127});
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(700);
-        IntakeMotor.brake();
+        IntakeSpeed = 0;
         pros::delay(800);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
 
         // Drop 1st mobile goal
         ClampPistons.set_value(0);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(200);
-        IntakeMotor.move(-127);
+        IntakeSpeed = -127;
         pros::delay(3000);
 
         // Pick up blue ring from start position ring stack
-        chassis.moveToPose(8, -46, 90, 5000, {.forwards = true, .maxSpeed = 110});
-        IntakeMotor.move(-127);
+        chassis.moveToPose(8, -46, 90, 2500, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = -127;
         pros::delay(200);
 
-        chassis.moveToPoint(24, -24, 2000, {.forwards = false, .maxSpeed = 90});
+        chassis.moveToPoint(26, -22, 2000, {.forwards = false, .maxSpeed = 70}, false);
         ClampPistons.set_value(1);
-        IntakeMotor.move(-127);
-        ladybrownPosition = 3;
-        my_task.notify();
-        chassis.moveToPoint(18, -18, 2000, {.forwards = false, .maxSpeed = 110});
+        IntakeSpeed = -127;
+        // chassis.moveToPoint(18, -18, 2000, {.forwards = false, .maxSpeed = 110});
 
         my_task.remove();
+        my_task2.remove();
     }
 );
 
