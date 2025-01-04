@@ -75,6 +75,7 @@ void opcontrol(void);
 #include "subsystemHeaders/clamp.hpp"
 #include "subsystemHeaders/ladybrown.hpp"
 #include "global.hpp"
+#include "chassis.hpp"
 //#include <iostream>
 #endif
 
