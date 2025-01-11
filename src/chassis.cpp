@@ -3,22 +3,22 @@
 
 bool isBlue = true;
 
-void moveToPoint(float x, float y, int timeout, lemlib::MoveToPointParams params, bool async) {
+void moveToPoint(float x, float y, int timeout, lemlib::MoveToPointParams params, bool async = true) {
     if(isBlue) chassis.moveToPoint(x, y, timeout, params, async);
     else chassis.moveToPoint(x * -1, y, timeout, params, async);
 }
 
-void moveToPose(float x, float y, float theta, int timeout, lemlib::MoveToPoseParams params, bool async) {
+void moveToPose(float x, float y, float theta, int timeout, lemlib::MoveToPoseParams params, bool async = true) {
     if(isBlue) chassis.moveToPose(x, y, theta, timeout, params, async);
     else chassis.moveToPose(x * -1, y, 360 - theta, timeout, params, async);
 }
 
-void swingToHeading(float theta, lemlib::DriveSide lockedSide, int timeout, lemlib::SwingToHeadingParams params, bool async) {
+void swingToHeading(float theta, lemlib::DriveSide lockedSide, int timeout, lemlib::SwingToHeadingParams params, bool async = true) {
     if(isBlue) chassis.swingToHeading(theta, lockedSide, timeout);
     else chassis.swingToHeading(360 - theta, lockedSide, timeout);
 }
 
-void swingToPoint(float x, float y, lemlib::DriveSide lockedSide, int timeout, lemlib::SwingToPointParams params, bool async) {
+void swingToPoint(float x, float y, lemlib::DriveSide lockedSide, int timeout, lemlib::SwingToPointParams params, bool async = true) {
     if(isBlue) chassis.swingToPoint(x, y, lockedSide, timeout);
     else chassis.swingToPoint(x * -1, y, lockedSide, timeout);
 }

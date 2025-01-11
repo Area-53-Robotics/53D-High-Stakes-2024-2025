@@ -4,7 +4,7 @@ extern bool isBlue;
 
 extern void moveToPoint(float x, float y, int timeout, lemlib::MoveToPointParams params, bool async);
 
-extern void moveToPose(float x, float y, float theta, int timeout, lemlib::MoveToPoseParams params, bool async);
+extern void moveToPose(float x, float y, float theta, int timeout, lemlib::MoveToPoseParams params, bool async = true);
 
 extern void swingToHeading(float theta, lemlib::DriveSide lockedSide, int timeout, lemlib::SwingToHeadingParams params, bool async);
 
