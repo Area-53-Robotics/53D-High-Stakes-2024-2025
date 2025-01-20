@@ -69,9 +69,43 @@ Auton leftQualsAuton(
 	"Left Quals",
 	"Last Updated: N/A\n"
 	"-----------------------------------------------------\n"
-	"The Left Auton\n",
+	"The Left (blue) Auton\n",
 	[]() -> void {   
-        chassis.setPose(0, 0, 0);
+        pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        Controller.print(0, 0, "The Blue Side Auton");
+        chassis.setPose(-12, -54, -231.99);
+
+        moveToPoint(-5, -59.5, 1000, {.forwards = true}, false);
+        ladybrownPosition = 3;
+        my_task.notify();
+        pros::delay(800);
+        ladybrownPosition = 1;
+        my_task.notify();
+
+        moveToPoint(-22, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(50);
+        ClampPistons.set_value(1);
+        pros::delay(50);
+
+        moveToPose(-48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = -127;
+        pros::delay(3000);
+
+        IntakeSpeed=0;
+        ClampPistons.set_value(0);
+
+
+        moveToPose(-42, -2, -325, 1200, {.forwards = false, .maxSpeed = 110});
+        ClampPistons.set_value(1);
+        moveToPose(-48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
+
+
+       
+        my_task2.remove();
+
+       
+        /*chassis.setPose(0, 0, 0);
         chassis.moveToPoint(0, 48, 10000);
         moveDrivetrain(100,225);
         pros::delay(1000);
@@ -86,7 +120,7 @@ Auton leftQualsAuton(
         IntakeMotor.move(-500);
         pros::delay(1500);
         IntakeMotor.brake();
-        /*
+
         */
     }
 );
@@ -97,6 +131,39 @@ Auton rightQualsAuton(
 	"-----------------------------------------------------\n"
 	"The Right Auton\n",
 	[]() -> void {
+        pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
+
+        Controller.print(0, 0, "The Red Side Auton");
+        chassis.setPose(12, -54, 231.99);
+
+         // Alliance Stake Scoring
+        moveToPoint(5, -59.5, 1000, {.forwards = true}, false);
+        ladybrownPosition = 3;
+        my_task.notify();
+        pros::delay(800);
+        ladybrownPosition = 1;
+        my_task.notify();
+
+        // Pick up 1st mobile goal
+        moveToPoint(22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(50);
+        ClampPistons.set_value(1);
+        pros::delay(50);
+
+        // Pick up lone ring stack
+        moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = -127;
+        pros::delay(3000);
+
+        // Touch the bar
+        ladybrownPosition = 3;
+        my_task.notify();
+        moveToPose(-20, -5, 45, 2000, {.forwards = true, .maxSpeed = 110});
+
+        
+
+         /*pros::Task my_task(LadybrownTask, (void*)"PROS");
        moveDrivetrain(-100,225);
        pros::delay(1000);
        ClampPistons.set_value(1);
@@ -106,15 +173,23 @@ Auton rightQualsAuton(
        turnDrivetrain(-100, 300);
        pros::delay(1000);
        moveDrivetrain(300,210);
-       pros::delay(1000);
-       IntakeMotor.move(-500);
+       pros::delay(2000);
+       ClampPistons.set_value(0);
+       moveDrivetrain(-600, 230);
+        ladybrownPosition = 3;
        
-       IntakeMotor.brake();
+        */
+       
+       //IntakeMotor.move(-500);
+       
+       //IntakeMotor.brake();
         //ClampPistons.set_value(0); */
         // chassis.calibrate();
         // chassis.setPose(0, 0, 0);
         // chassis.moveToPoint(0, 48, 10000);
         // chassis.turnToHeading(90, 2000);
+         my_task.notify();
+        my_task.remove();
         Controller.print(0, 0, "The right auton");
         pros::delay(20);
     }
@@ -152,17 +227,18 @@ Auton newQualsAuton(
         pros::delay(3000);
 
         // Pick up left ring stack
-        moveToPose(45, -11, 325, 1200, {.forwards = true, .maxSpeed = 110});
-        pros::delay(1200);
-        IntakeSpeed = 0;
+        moveToPose(49, -1.5, -325, 1200, {.forwards = true, .maxSpeed = 110});
+        pros::delay(2000);
+       
 
-        /*
+        
         // ! AWP Alt: Go for bar
         ladybrownPosition = 3;
         my_task.notify();
-        moveToPose(-24, -12, 45, 2000);
-        */
-
+        moveToPose(-24, -12, 45, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = 0;
+        
+        /*
         // Start moving towards start position ring stack
         moveToPose(4, -46, 270, 4000, {.forwards = true, .maxSpeed = 127});
         IntakeSpeed = -127;
@@ -186,8 +262,8 @@ Auton newQualsAuton(
         IntakeSpeed = -127;
         moveToPose(-20, -20, 45, 1000, {});
         // moveToPoint(-18, -18, 2000, {.forwards = false, .maxSpeed = 110});
-
-        my_task.remove();
+            */
+       // my_task.remove();
         my_task2.remove();
     }
 );
@@ -196,9 +272,40 @@ Auton newQualsAuton2(
 	"Blue Auton",
 	"Last Updated: N/A\n"
 	"-----------------------------------------------------\n"
-	"The Blue Side Auton\n",
+	"The Red Side Auton\n",
 	[]() -> void {
-        // Pre-Auton Stuff
+       pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        Controller.print(0, 0, "The Blue Side Auton");
+        chassis.setPose(-12, -54, -231.99);
+
+        moveToPoint(-5, -59.5, 1000, {.forwards = true}, false);
+        ladybrownPosition = 3;
+        my_task.notify();
+        pros::delay(800);
+        ladybrownPosition = 1;
+        my_task.notify();
+
+        moveToPoint(-22, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(50);
+        ClampPistons.set_value(1);
+        pros::delay(50);
+
+        moveToPose(-48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = -127;
+        pros::delay(3000);
+
+        moveToPose(-42, -2, -325, 1200, {.forwards = true, .maxSpeed = 110});
+        pros::delay(3000);
+
+        ladybrownPosition = 3;
+        my_task.notify();
+        moveToPose(-24, -12, 45, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeSpeed = 0;
+        my_task2.remove();
+
+      
+      /*  // Pre-Auton Stuff
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
@@ -213,7 +320,7 @@ Auton newQualsAuton2(
         my_task.notify();
 
         // Pick up 1st mobile goal
-        moveToPoint(22, -26, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        moveToPoint(22, -26, 1250, {.forwards = true, .maxSpeed = 90}, false);
         pros::delay(50);
         ClampPistons.set_value(1);
         pros::delay(50);
@@ -227,6 +334,7 @@ Auton newQualsAuton2(
         moveToPose(43, -7, 335, 1200, {.forwards = true, .maxSpeed = 110});
         pros::delay(1200);
         IntakeSpeed = 0;
+        */
     }
 );
 
@@ -266,7 +374,7 @@ Auton pSkillsAuton(
         ClampPistons.set_value(0);
         
         // ! PART 2 BEGINS HERE
-
+        
         // Pick up mobile goal
         chassis.moveToPoint(-24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
@@ -283,6 +391,7 @@ Auton pSkillsAuton(
         ClampPistons.set_value(0);
 
         pros::delay(20);
+        
         /*
         */
     }
@@ -306,7 +415,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = newQualsAuton.autonNum;
+unsigned short int autonSelect = rightQualsAuton.autonNum;
 
 
 

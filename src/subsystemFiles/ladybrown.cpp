@@ -29,7 +29,7 @@ void LadybrownTask(void * param) {
 
     // The angle (in degrees) for each position
     const float position1 = 350;
-    const float position2 = 324.00;
+    const float position2 = 316.00;
     const float position3 = 209.47;
 
     // Constant variable that is multiplied by the ladybrown angle error to determine ladybrown motor voltage
