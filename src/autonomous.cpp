@@ -92,14 +92,15 @@ Auton leftQualsAuton(
         IntakeSpeed = -127;
         pros::delay(3000);
 
+        moveToPose(-32, -30, 97, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeSpeed=0;
-        ClampPistons.set_value(0);
+       /* ClampPistons.set_value(0);
 
 
         moveToPose(-42, -2, -325, 1200, {.forwards = false, .maxSpeed = 110});
         ClampPistons.set_value(1);
         moveToPose(-48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
-
+*/
 
        
         my_task2.remove();
@@ -415,7 +416,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = rightQualsAuton.autonNum;
+unsigned short int autonSelect = leftQualsAuton.autonNum;
 
 
 
