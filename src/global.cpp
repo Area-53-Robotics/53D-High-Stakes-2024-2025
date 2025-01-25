@@ -13,7 +13,7 @@ pros::Rotation vertical_encoder(1);
 lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 0);
 
 
-// Declares the intake motor and sets it to port 9
+// Declares the intake motor and sets it to port 6
 pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
 
 // Declares the clamp piston and sets it to adi port G

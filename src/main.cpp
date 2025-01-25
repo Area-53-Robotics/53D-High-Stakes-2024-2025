@@ -106,12 +106,13 @@ void opcontrol() {
 			// notify the ladybrown mechanism to move to the new target position
 			ladybrown_task.notify();
 		// When the L2 controller button is pressed...
-		} else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
-			// decrease the ladybrown position by 1
-			LadybrownSwitch(false);
-			// notify the ladybrown mechanism to move to the new target position
-			ladybrown_task.notify();
 		}
+		// else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+		// 	// decrease the ladybrown position by 1
+		// 	LadybrownSwitch(false);
+		// 	// notify the ladybrown mechanism to move to the new target position
+		// 	ladybrown_task.notify();
+		// }
 		
 		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(500);
@@ -120,6 +121,8 @@ void opcontrol() {
 
 		// Sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
+
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) PneumaticClamp();
 
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
 			driveReversed = !driveReversed;
