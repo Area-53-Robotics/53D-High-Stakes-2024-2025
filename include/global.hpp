@@ -1,5 +1,6 @@
 #include "api.h"
 #include "lemlib/api.hpp"
+#include "pros/adi.hpp"
 
 extern pros::Controller Controller;
 
@@ -17,6 +18,8 @@ extern lemlib::TrackingWheel vertical_tracking_wheel;
 extern pros::Motor IntakeMotor;
 
 extern pros::adi::DigitalOut ClampPistons;
+extern pros::adi::DigitalOut GoalRushPiston;
+extern pros::adi::DigitalOut RingRushPiston;
 
 extern lemlib::Drivetrain drivetrain;
 extern lemlib::ControllerSettings lateral_controller;

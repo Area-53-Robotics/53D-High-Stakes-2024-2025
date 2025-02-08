@@ -119,9 +119,10 @@ void opcontrol() {
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-500);
 		else IntakeMotor.brake();
 
-		// Sets the clamp to operate in driver control after pressing the A button
-		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) RingRush();
 
+		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) GoalRush();
+		// Sets the clamp to operate in driver control after pressing the L2 button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) PneumaticClamp();
 
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {

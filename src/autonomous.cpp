@@ -381,10 +381,11 @@ Auton pSkillsAuton(
         
         // ! PART 2 BEGINS HERE
 
-        /*
+        
         
         // Pick up mobile goal
         chassis.moveToPoint(-24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
+        pros::delay(1000);
         ClampPistons.set_value(1);
         IntakeMotor.move(-127);
 
@@ -395,11 +396,11 @@ Auton pSkillsAuton(
         chassis.moveToPoint(-48, -60, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
         IntakeMotor.brake();
-        chassis.moveToPose(-60, -60, 315, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        chassis.moveToPoint(-60, -60,  2000, {.forwards = true, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
 
         pros::delay(20);
-        */
+        
     }
 );
 
@@ -421,7 +422,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = blueGoalRushAuton.autonNum;
+unsigned short int autonSelect = pSkillsAuton.autonNum;
 
 
 

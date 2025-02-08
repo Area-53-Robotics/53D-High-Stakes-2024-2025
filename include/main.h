@@ -72,7 +72,7 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "lemlib/api.hpp"
-#include "subsystemHeaders/clamp.hpp"
+#include "subsystemHeaders/pneumatics.hpp"
 #include "subsystemHeaders/ladybrown.hpp"
 #include "global.hpp"
 #include "chassis.hpp"
