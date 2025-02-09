@@ -19,8 +19,8 @@ pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
 
 // Declares the clamp piston and sets it to adi port G
 pros::adi::DigitalOut ClampPistons('G');
-pros::adi::DigitalOut GoalRushPiston('F');
-pros::adi::DigitalOut RingRushPiston('E');
+pros::adi::DigitalOut GoalRushPiston('E');
+pros::adi::DigitalOut RingRushPiston('D');
 
 lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               &right_mg, // right motor group

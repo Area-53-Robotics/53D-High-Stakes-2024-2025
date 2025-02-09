@@ -340,6 +340,30 @@ Auton redRingSideAuton(
     }
 );
 
+Auton newGoalRushAuton(
+	"Red Ring Side",
+	"Last Updated: N/A\n"
+	"-----------------------------------------------------\n"
+	"The Red Ring Side Auton\n",
+	[]() -> void {
+       pros::Task my_task(LadybrownTask, (void*)"PROS");
+        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        Controller.print(0, 0, "The Blue Side Auton");
+        chassis.setPose(-58, -54, 0);
+        
+        GoalRush();
+        chassis.moveToPoint(-56, -17, 1400, {.forwards = true, .maxSpeed = 127}, false);
+        GoalRush();
+        chassis.moveToPoint(-58, -36, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        GoalRush();
+        chassis.moveToPoint(-58, -43, 1500, {.forwards = false, .maxSpeed = 127}, false);
+        GoalRush();
+        pros::delay(200);
+        chassis.moveToPoint(-50, -26, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        ClampPistons.set_value(1);
+    }
+);
+
 Auton pSkillsAuton(
 	"P-Skills",
 	"Last Updated: N/A\n"
@@ -422,7 +446,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = pSkillsAuton.autonNum;
+unsigned short int autonSelect = newGoalRushAuton.autonNum;
 
 
 
