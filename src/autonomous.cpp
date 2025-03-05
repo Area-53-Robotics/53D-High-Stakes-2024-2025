@@ -26,7 +26,7 @@ void turnDrivetrain(int power, int timeout){
     right_mg.move(power);
     pros::delay(timeout);
     left_mg.brake();
-    right_mg.brake(); 
+    right_mg.brake();
 }
 
 short int IntakeSpeed = 0;
@@ -61,7 +61,7 @@ Auton blueGoalRushAuton(
 	"Last Updated: N/A\n"
 	"-----------------------------------------------------\n"
 	"The Blue Goal Rush Auton\n",
-	[]() -> void {   
+	[]() -> void {
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
@@ -148,7 +148,7 @@ Auton redGoalRushAuton(
         moveToPose(-20, -5, 45, 2000, {.forwards = true, .maxSpeed = 110});
 
         my_task2.remove();
-        
+
 
          /*pros::Task my_task(LadybrownTask, (void*)"PROS");
        moveDrivetrain(-100,225);
@@ -164,11 +164,11 @@ Auton redGoalRushAuton(
        ClampPistons.set_value(0);
        moveDrivetrain(-600, 230);
         ladybrownPosition = 3;
-       
+
         */
-       
+
        //IntakeMotor.move(-500);
-       
+
        //IntakeMotor.brake();
         //ClampPistons.set_value(0); */
         // chassis.calibrate();
@@ -216,15 +216,15 @@ Auton blueRingSideAuton(
         // Pick up left ring stack
         moveToPose(49, -1.5, -325, 1200, {.forwards = true, .maxSpeed = 110});
         pros::delay(2000);
-       
 
-        
+
+
         // ! AWP Alt: Go for bar
         ladybrownPosition = 3;
         my_task.notify();
         moveToPose(-24, -12, 45, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeSpeed = 0;
-        
+
         /*
         // Start moving towards start position ring stack
         moveToPose(4, -46, 270, 4000, {.forwards = true, .maxSpeed = 127});
@@ -306,7 +306,7 @@ Auton redRingSideAuton(
 
         my_task2.remove();
 
-      
+
       /*  // Pre-Auton Stuff
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         pros::Task my_task2(IntakeTask, (void*)"PROS");
@@ -350,7 +350,7 @@ Auton newGoalRushAuton(
         pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(-58, -54, 0);
-        
+
         GoalRush();
         chassis.moveToPoint(-56, -17, 1400, {.forwards = true, .maxSpeed = 127}, false);
         GoalRush();
@@ -402,11 +402,11 @@ Auton pSkillsAuton(
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
         chassis.moveToPoint(58, -58, 2000, {.forwards = false, .maxSpeed = 90}, true);
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
-        
+
         // ! PART 2 BEGINS HERE
 
-        
-        
+
+
         // Pick up mobile goal
         chassis.moveToPoint(-24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
         pros::delay(1000);
@@ -424,7 +424,6 @@ Auton pSkillsAuton(
         ClampPistons.set_value(0);
 
         pros::delay(20);
-        
     }
 );
 
