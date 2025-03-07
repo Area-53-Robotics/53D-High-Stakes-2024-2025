@@ -95,10 +95,10 @@ void opcontrol() {
 		// Tank control scheme
 		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
 		int RYAxis = Controller.get_analog(ANALOG_RIGHT_Y); // Gets the turn left/right from right joystick
-		
+
 		left_mg.move(LYAxis); // Sets left motor voltage
 		right_mg.move(RYAxis); // Sets right motor voltage
-		
+
 		// When the L1 controller button is pressed...
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
 			// increase the ladybrown position by 1
@@ -113,7 +113,7 @@ void opcontrol() {
 		// 	// notify the ladybrown mechanism to move to the new target position
 		// 	ladybrown_task.notify();
 		// }
-		
+
 		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(500);
 		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-500);
