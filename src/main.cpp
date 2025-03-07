@@ -123,7 +123,7 @@ void opcontrol() {
 
 		// Sets the clamp to operate in driver control after pressing the A button
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) PneumaticClamp();
-		
+
 		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
 			if (!goalRushActivated) {
 				GoalRushPiston.set_value(1);
@@ -136,6 +136,7 @@ void opcontrol() {
 			}
 		}
 
+		
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
 			driveReversed = !driveReversed;
 			ControllerDisplay();

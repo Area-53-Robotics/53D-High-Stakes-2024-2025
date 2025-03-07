@@ -18,10 +18,12 @@ void PneumaticClamp() {
 bool goalRushActivated = false;
 
 void GoalRush() {
+    //sets the variable defined above to true
     if (!goalRushActivated) {
         GoalRushPiston.set_value(1);
         goalRushActivated = true;
     } else {
+     //keeps the variable defined above to false 
         GoalRushPiston.set_value(0);
         goalRushActivated = false;
     }

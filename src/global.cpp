@@ -18,9 +18,9 @@ lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwhe
 pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
 
 // Declares the clamp piston and sets it to adi port G
-pros::adi::DigitalOut ClampPistons('G');
-pros::adi::DigitalOut GoalRushPiston('E');
-pros::adi::DigitalOut RingRushPiston('D');
+pros::adi::DigitalOut ClampPistons('E');
+pros::adi::DigitalOut GoalRushPiston('B');
+pros::adi::DigitalOut RingRushPiston('G');
 
 lemlib::Drivetrain drivetrain(&left_mg, // left motor group
                               &right_mg, // right motor group
