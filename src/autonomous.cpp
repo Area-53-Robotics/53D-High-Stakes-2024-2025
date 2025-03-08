@@ -208,7 +208,7 @@ Auton blueRingSideAuton(
         ClampPistons.set_value(1);
         pros::delay(50);
 
-       
+
 
         // Pick up lone ring stack
         //moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
@@ -231,10 +231,10 @@ Auton blueRingSideAuton(
         pros::delay(1500);*/
 
          moveToPoint(48, -20, 1250, {.forwards = false, .maxSpeed = 90}, false);
-        
+
         //moveToPoint(53, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
 
-       
+
 
 
 
@@ -243,7 +243,7 @@ Auton blueRingSideAuton(
         my_task.notify();
         moveToPose(-24, -12, 45, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeSpeed = 0; */
-        
+
         /*
         // Start moving towards start position ring stack
         moveToPose(4, -46, 270, 4000, {.forwards = true, .maxSpeed = 127});
@@ -365,38 +365,44 @@ Auton newGoalRushAuton(
 	"-----------------------------------------------------\n"
 	"The Red Ring Side Auton\n",
 	[]() -> void {
-       pros::Task my_task(LadybrownTask, (void*)"PROS");
+        // Tasks
+        pros::Task my_task(LadybrownTask, (void*)"PROS");
         pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(58, -54, 0);
+
+        // Turn to face mobile goal
         chassis.turnToPoint(47, -24, 900);
         GoalRush();
-        pros::delay(200);
-        IntakeSpeed = -68;
-        chassis.moveToPoint(45, -20,1200,{.forwards = true, .maxSpeed = 110}, false);
-        pros::delay(410);
+        IntakeSpeed = -73;
+
+        // Rush the mobile goal while intaking a ring from the first stack
+        chassis.moveToPoint(45, -20,1100,{.forwards = true, .maxSpeed = 110}, false);
+        pros::delay(500);
         IntakeSpeed = 0;
-        pros::delay(200);
+        pros::delay(100);
         GoalRush();
-        pros::delay(600);
-        chassis.moveToPoint(48, -35, 1700, {.forwards = false, .maxSpeed = 127}, false);
-        pros::delay(200);
+        pros::delay(100);
+
+        // Drive backwards
+        chassis.moveToPoint(48, -35, 1500, {.forwards = false, .maxSpeed = 127}, false);
+        pros::delay(100);
         GoalRush();
-        chassis.moveToPoint(48, -34, 1700, {.forwards = false, .maxSpeed = 127}, false);
-        chassis.moveToPoint(48, -47, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        chassis.moveToPoint(48, -34, 1500, {.forwards = false, .maxSpeed = 127}, false);
+        chassis.moveToPoint(48, -47, 1500, {.forwards = false, .maxSpeed = 127}, false);
         chassis.turnToHeading(170, 1000);
-        chassis.moveToPoint(48, -20, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        chassis.moveToPoint(48, -20, 1500, {.forwards = false, .maxSpeed = 127}, false);
         pros::delay(200);
         ClampPistons.set_value(1);
         IntakeSpeed = -110;
-        pros::delay(660);
+        pros::delay(630);
         IntakeSpeed = 0;
         GoalRush();
-        pros::delay(200);
+        pros::delay(100);
         ClampPistons.set_value(0);
-        chassis.moveToPoint(48, -47, 1700, {.forwards = true, .maxSpeed = 127}, false);
-        chassis.moveToPose(24, -26, 90, 1700, {.forwards = false, .maxSpeed = 127}, false);
-        chassis.moveToPoint(23, -50, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        chassis.moveToPoint(48, -47, 1500, {.forwards = true, .maxSpeed = 127}, false);
+        chassis.moveToPose(21, -26, 45, 1500, {.forwards = false, .maxSpeed = 90}, false);
+        chassis.moveToPoint(23, -50, 1500, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
         IntakeSpeed = -127;
         pros::delay(500);
@@ -404,17 +410,21 @@ Auton newGoalRushAuton(
         pros::delay(500);
         ClampPistons.set_value(0);
         pros::delay(200);
-        chassis.moveToPoint(0, -48, 1700, {.forwards = true, .maxSpeed = 127}, false);
+        chassis.moveToPoint(2, -64, 1500, {.forwards = true, .maxSpeed = 100}, false);
         IntakeSpeed = -127;
-        chassis.moveToPoint(-1, -49, 1700, {.forwards = true, .maxSpeed = 127}, false);
-        
-        
+        chassis.moveToPoint(0, -62, 1500, {.forwards = true, .maxSpeed = 80}, false);
+        pros::delay(400);
+        IntakeSpeed = 0;
+        chassis.moveToPoint(0, -72, 1500, {.forwards = true, .maxSpeed = 80}, false);
+        // chassis.moveToPoint(-2, -52, 1700, {.forwards = true, .maxSpeed = 127}, false);
+
+
 
         //GoalRush();
         //pros::delay(200);
-       // GoalRushPiston.set_value(0);
-       // chassis.moveToPoint(58, -43, 1700, {.forwards = false, .maxSpeed = 127}, false);
-        /*chassis.moveToPose(-58, -33, 180, 1200, {.forwards = false, .maxSpeed = 110}, false); 
+        // GoalRushPiston.set_value(0);
+        // chassis.moveToPoint(58, -43, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        /*chassis.moveToPose(-58, -33, 180, 1200, {.forwards = false, .maxSpeed = 110}, false);
         chassis.moveToPoint(-53,-24, 1700, {.forwards = false, .maxSpeed = 127}, false);
         ClampPistons.set_value(1);
         pros::delay(200);
@@ -424,15 +434,15 @@ Auton newGoalRushAuton(
         ClampPistons.set_value(0);
         pros::delay(200);
         chassis.moveToPose(-46,-25,-90,1700, {.forwards = false, .maxSpeed = 127}, false);
-        chassis.moveToPoint(-24,-24, 1700, {.forwards = false, .maxSpeed = 127}, false); 
-        ClampPistons.set_value(1); */   
-        //chassis.moveToPoint(-58,-54, 1700, {.forwards = false, .maxSpeed = 127}, false);        
-        //chassis.moveToPoint(-24,-24, 1700, {.forwards = false, .maxSpeed = 127}, false);        
+        chassis.moveToPoint(-24,-24, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        ClampPistons.set_value(1); */
+        //chassis.moveToPoint(-58,-54, 1700, {.forwards = false, .maxSpeed = 127}, false);
+        //chassis.moveToPoint(-24,-24, 1700, {.forwards = false, .maxSpeed = 127}, false);
         //chassis.moveToPoint(-46,-25,1700, {.forwards = true, .maxSpeed = 127}, false);
         //IntakeSpeed = 127;
         //pros::delay(1000);
         //IntakeSpeed = 0;
-        
+
         //ClampPistons.set_value(1);
         //chassis.moveToPoint(-58, -43, 1500, {.forwards = false, .maxSpeed = 127}, false);
         //GoalRush();
@@ -453,33 +463,44 @@ Auton pSkillsAuton(
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         // pros::Task my_task2(IntakeTask, (void*)"PROS");
 
-        chassis.setPose(-4, -54, 180);
+        chassis.setPose(0, -60, 0);
 
-        ladybrownPosition = 3;
-        my_task.notify();
-        pros::delay(800);
-        ladybrownPosition = 1;
-        my_task.notify();
+        // IntakeSpeed = -127;
+        // pros::delay(500);
+        // IntakeSpeed = 0;
 
-        // Pick up mobile goal
+        IntakeMotor.move(-127);
+        pros::delay(500);
+        IntakeMotor.brake();
+
+        // Pick up mobile goal (after moving forwards first)
+        chassis.moveToPoint(0, -50, 1500, {.forwards = true, .maxSpeed = 90}, false);
+
         chassis.moveToPoint(24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
+        pros::delay(100);
         IntakeMotor.move(-127);
 
         chassis.moveToPoint(24, -24, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
         chassis.moveToPoint(50, -26, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        ladybrownPosition = 2;
+        chassis.moveToPoint(55, -1, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        //chassis.moveToPoint(65, 0, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        //ladybrownPosition = 3;
+        //pros::delay(200);
+        //ladybrownPosition = 1;
         chassis.moveToPose(60, -48, 180, 2000, {.forwards = true, .maxSpeed = 90}, false);
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
-        chassis.moveToPoint(48, -60, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        chassis.moveToPoint(48, -58, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
         IntakeMotor.brake();
         chassis.moveToPose(60, -60, 315, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
 
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
-        chassis.moveToPoint(58, -58, 2000, {.forwards = false, .maxSpeed = 90}, true);
-        chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
+        //chassis.moveToPoint(58, -58, 2000, {.forwards = false, .maxSpeed = 90}, true);
+        //chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
 
         // ! PART 2 BEGINS HERE
 
@@ -523,7 +544,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = blueRingSideAuton.autonNum;
+unsigned short int autonSelect = newGoalRushAuton.autonNum;
 
 
 
