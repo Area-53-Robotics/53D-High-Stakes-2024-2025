@@ -63,7 +63,7 @@ Auton blueGoalRushAuton(
 	"The Blue Goal Rush Auton\n",
 	[]() -> void {
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(-12, -54, 128.01);
 
@@ -79,7 +79,9 @@ Auton blueGoalRushAuton(
         chassis.moveToPose(-45, -23, 20, 3000, {.forwards = true, .maxSpeed = 110}, false);
         IntakeSpeed = -127;
         pros::delay(900);
-        IntakeSpeed = 0;
+        IntakeMotor.brake();
+        // IntakeSpeed = 0;
+
 
         // Pick up auton line mobile goal
         chassis.moveToPoint(-48, -12, 1400, {.forwards = false, .maxSpeed = 90}, false);
@@ -99,15 +101,17 @@ Auton blueGoalRushAuton(
         ClampPistons.set_value(1);
         pros::delay(50);
 
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         pros::delay(500);
-        IntakeSpeed = 0;
+        IntakeMotor.brake();
+        // IntakeSpeed = 0;
 
         ladybrownPosition = 3;
         my_task.notify();
         moveToPose(-12, -12, 90, 2000, {.forwards = true, .maxSpeed = 110}, false);
 
-        my_task2.remove();
+        // my_task2.remove();
     }
 );
 
@@ -118,7 +122,7 @@ Auton redGoalRushAuton(
 	"The Red Goal Rush Auton\n",
 	[]() -> void {
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
 
         Controller.print(0, 0, "The Red Side Auton");
         chassis.setPose(12, -54, 231.99);
@@ -139,7 +143,8 @@ Auton redGoalRushAuton(
 
         // Pick up lone ring stack
         moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         pros::delay(3000);
 
         // Touch the bar
@@ -147,7 +152,7 @@ Auton redGoalRushAuton(
         my_task.notify();
         moveToPose(-20, -5, 45, 2000, {.forwards = true, .maxSpeed = 110});
 
-        my_task2.remove();
+        // my_task2.remove();
 
 
          /*pros::Task my_task(LadybrownTask, (void*)"PROS");
@@ -190,7 +195,7 @@ Auton blueRingSideAuton(
 	[]() -> void {
         // Pre-Auton Stuff
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(12, -54, 231.99);
 
@@ -212,10 +217,12 @@ Auton blueRingSideAuton(
 
         // Pick up lone ring stack
         //moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
+        IntakeMotor.move(-127);
         moveToPoint(48, -24, 1250, {.forwards = true, .maxSpeed = 90}, false);
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
         pros::delay(3000);
         //IntakeSpeed = 0;
+        IntakeMotor.brake();
 
         // Pick up left ring stack
         chassis.turnToPoint(48, 0, 1250);
@@ -270,7 +277,7 @@ Auton blueRingSideAuton(
         // moveToPoint(-18, -18, 2000, {.forwards = false, .maxSpeed = 110});
             */
        // my_task.remove();
-        my_task2.remove();
+        // my_task2.remove();
     }
 );
 
@@ -281,49 +288,56 @@ Auton redRingSideAuton(
 	"The Red Ring Side Auton\n",
 	[]() -> void {
        pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue S ide Auton");
         chassis.setPose(-12, -54, -231.99);
 
+        /*
         // Alliance Stake Scoring
-        moveToPoint(-5, -59.5, 1000, {.forwards = true}, false);
+        moveToPoint(-5, -59.5, 900, {.forwards = true}, false);
         ladybrownPosition = 3;
         my_task.notify();
         pros::delay(800);
         ladybrownPosition = 1;
         my_task.notify();
+        */
 
         // Clamp mobile goal
-        moveToPoint(-22, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        moveToPoint(-22, -24, 1100, {.forwards = false, .maxSpeed = 90}, false);
         pros::delay(50);
         ClampPistons.set_value(1);
         pros::delay(50);
 
-        moveToPose(-48, -24, 30, 1700, {.forwards = true, .maxSpeed = 110});
-        IntakeSpeed = -127;
-        pros::delay(2500);
+        moveToPose(-48, -24, 0, 1700, {.forwards = true, .maxSpeed = 110});
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
+        pros::delay(3000);
 
-        moveToPose(-42, -6, 10, 1200, {.forwards = true, .maxSpeed = 110}, false);
+        moveToPose(-50, -12, 10, 1200, {.forwards = true, .maxSpeed = 110}, false);
         pros::delay(1500);
 
         moveToPoint(-40, -22, 1750, {.forwards = true, .maxSpeed = 110}, false);
 
-        moveToPose(-39, -12, 22, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        moveToPose(-43, -12, 22, 2000, {.forwards = true, .maxSpeed = 90}, false);
         pros::delay(1500);
 
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         ladybrownPosition = 3;
         my_task.notify();
         moveToPose(-12, -12, 90, 2000, {.forwards = true, .maxSpeed = 110}, false);
 
         // Intake & outtake (requested by Makhi) to prevent jamming
-        IntakeSpeed = 127;
+        // IntakeSpeed = 127;
+        IntakeMotor.move(127);
         pros::delay(500);
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         pros::delay(500);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
 
-        my_task2.remove();
+        // my_task2.remove();
 
 
       /*  // Pre-Auton Stuff
@@ -367,20 +381,22 @@ Auton newRedGoalRushAuton(
 	[]() -> void {
         // Tasks
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(58, -54, 0);
 
         // Turn to face mobile goal
         chassis.turnToPoint(47, -24, 900);
         GoalRush(); // Lower
-        IntakeSpeed = -73;
+        // IntakeSpeed = -73;
+        IntakeMotor.move(-73);
 
         // Rush the mobile goal while intaking a ring from the first stack
         chassis.moveToPoint(45, -18,1100,{.forwards = true, .maxSpeed = 110}, false);
         pros::delay(600);
         IntakeSpeed = 0;
-        pros::delay(100);
+        IntakeMotor.brake();
+        // pros::delay(100);
         GoalRush(); // Raise
         pros::delay(100);
 
@@ -399,9 +415,11 @@ Auton newRedGoalRushAuton(
         ClampPistons.set_value(1);
 
         // Score the pre-load ring onto the mobile goal
-        IntakeSpeed = -110;
+        // IntakeSpeed = -110;
+        IntakeMotor.move(-110);
         pros::delay(630);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         GoalRush(); // Raise (Final Deactivation)
         pros::delay(100);
         ClampPistons.set_value(0);
@@ -415,22 +433,25 @@ Auton newRedGoalRushAuton(
         ClampPistons.set_value(1);
 
         // Score the second ring onto the second mobile goal
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         pros::delay(500);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         pros::delay(500);
         ClampPistons.set_value(0);
         pros::delay(200);
 
-        my_task2.remove();
 
         /*
         // Go for the ring stack
         chassis.moveToPoint(2, -64, 1500, {.forwards = true, .maxSpeed = 100}, false);
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         chassis.moveToPoint(0, -62, 1500, {.forwards = true, .maxSpeed = 80}, false);
         pros::delay(400);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         chassis.moveToPoint(0, -72, 1500, {.forwards = true, .maxSpeed = 80}, false);
         // chassis.moveToPoint(-2, -52, 1700, {.forwards = true, .maxSpeed = 127}, false);
 
@@ -449,19 +470,21 @@ Auton newBlueGoalRushAuton(
 	[]() -> void {
         // Tasks
         pros::Task my_task(LadybrownTask, (void*)"PROS");
-        pros::Task my_task2(IntakeTask, (void*)"PROS");
+        // pros::Task my_task2(IntakeTask, (void*)"PROS");
         Controller.print(0, 0, "The Blue Side Auton");
         chassis.setPose(-58, -54, 0);
 
         // Turn to face mobile goal
         chassis.turnToPoint(-47, -24, 900);
         GoalRush(); // Lower
-        IntakeSpeed = -73;
+        // IntakeSpeed = -73;
+        IntakeMotor.move(-73);
 
         // Rush the mobile goal while intaking a ring from the first stack
         chassis.moveToPoint(-45, -18,1100,{.forwards = true, .maxSpeed = 110}, false);
         pros::delay(600);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         pros::delay(100);
         GoalRush(); // Raise
         pros::delay(100);
@@ -481,9 +504,11 @@ Auton newBlueGoalRushAuton(
         ClampPistons.set_value(1);
 
         // Score the pre-load ring onto the mobile goal
-        IntakeSpeed = -110;
+        // IntakeSpeed = -110;
+        IntakeMotor.move(-110);
         pros::delay(630);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         GoalRush(); // Raise (Final Deactivation)
         pros::delay(100);
         ClampPistons.set_value(0);
@@ -497,22 +522,26 @@ Auton newBlueGoalRushAuton(
         ClampPistons.set_value(1);
 
         // Score the second ring onto the second mobile goal
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         pros::delay(500);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         pros::delay(500);
         ClampPistons.set_value(0);
         pros::delay(200);
 
-        my_task2.remove();
+        // my_task2.remove();
 
         /*
         // Go for the ring stack
         chassis.moveToPoint(-2, -64, 1500, {.forwards = true, .maxSpeed = 100}, false);
-        IntakeSpeed = -127;
+        // IntakeSpeed = -127;
+        IntakeMotor.move(-127);
         chassis.moveToPoint(0, -62, 1500, {.forwards = true, .maxSpeed = 80}, false);
         pros::delay(400);
-        IntakeSpeed = 0;
+        // IntakeSpeed = 0;
+        IntakeMotor.brake();
         chassis.moveToPoint(0, -72, 1500, {.forwards = true, .maxSpeed = 80}, false);
         // chassis.moveToPoint(-2, -52, 1700, {.forwards = true, .maxSpeed = 127}, false);
         */
@@ -530,7 +559,7 @@ Auton pSkillsAuton(
         pros::Task my_task(LadybrownTask, (void*)"PROS");
         // pros::Task my_task2(IntakeTask, (void*)"PROS");
 
-        chassis.setPose(0, -57, 0);
+        chassis.setPose(0, -62, 0);
 
         // IntakeSpeed = -127;
         // pros::delay(500);
@@ -542,7 +571,7 @@ Auton pSkillsAuton(
 
         // Pick up mobile goal (after moving forwards first)
         chassis.moveToPoint(0, -50, 1500, {.forwards = true, .maxSpeed = 90}, false);
-        chassis.moveToPoint(24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
+        chassis.moveToPoint(24, -48, 1500, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(1);
         pros::delay(100);
         IntakeMotor.move(-127);
@@ -562,25 +591,30 @@ Auton pSkillsAuton(
         //pros::delay(200);
         //ladybrownPosition = 1;
 
-        // 3rd, 4th, and 5th rings
+        // 3rd ring
         chassis.moveToPose(60, -48, 180, 2000, {.forwards = true, .maxSpeed = 90}, false);
-        chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
-        chassis.moveToPoint(48, -58, 2000, {.forwards = true, .maxSpeed = 90}, false);
+
+        // move back to prepare for intaking 4th ring
+        chassis.moveToPoint(60, -24, 1000, {.forwards = false, .maxSpeed = 90});
+
+        // 4th and 5th rings
+        chassis.moveToPoint(48, -48, 1700, {.forwards = true, .maxSpeed = 90}, false);
+        chassis.moveToPoint(48, -62, 1500, {.forwards = true, .maxSpeed = 90}, false);
         IntakeMotor.brake();
 
         // Score mobile goal in corner
         chassis.moveToPose(60, -60, 315, 2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
 
-        // Turn to prepare for the second part
+        // Turn to prepare for the second part, and mash the mobile goal into the corner
         chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
-        //chassis.moveToPoint(58, -58, 2000, {.forwards = false, .maxSpeed = 90}, true);
-        //chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, true);
+        chassis.moveToPoint(62, -62, 2000, {.forwards = false, .maxSpeed = 90}, false);
+        chassis.moveToPoint(48, -48, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
         // ! PART 2 BEGINS HERE
 
         // Pick up mobile goal
-        chassis.moveToPoint(-24, -48, 2000, {.forwards = false, .maxSpeed = 90}, false);
+        chassis.moveToPoint(-24, -52, 2000, {.forwards = false, .maxSpeed = 90}, false);
         pros::delay(1000);
         ClampPistons.set_value(1);
         IntakeMotor.move(-127);
@@ -595,8 +629,11 @@ Auton pSkillsAuton(
         chassis.moveToPoint(-48, -60, 2000, {.forwards = true, .maxSpeed = 90}, false);
 
         IntakeMotor.brake();
-        chassis.moveToPoint(-60, -60,  2000, {.forwards = true, .maxSpeed = 90}, false);
+        chassis.moveToPoint(-60, -60,  2000, {.forwards = false, .maxSpeed = 90}, false);
         ClampPistons.set_value(0);
+        chassis.moveToPoint(-48, -48, 1700, {.forwards = true, .maxSpeed = 90}, false);
+        chassis.moveToPoint(-62, -62, 1700, {.forwards = false, .maxSpeed = 90}, false);
+        chassis.moveToPoint(-48, -48, 1700, {.forwards = true, .maxSpeed = 90}, false);
 
         pros::delay(20);
     }
@@ -620,7 +657,7 @@ Auton lemLibAuton(
 
 
 
-unsigned short int autonSelect = newRedGoalRushAuton.autonNum;
+unsigned short int autonSelect = blueRingSideAuton.autonNum;
 
 
 

@@ -15,7 +15,7 @@ lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwhe
 
 
 // Declares the intake motor and sets it to port 6
-pros::Motor IntakeMotor(6, pros::v5::MotorGears::blue);
+pros::Motor IntakeMotor(8, pros::v5::MotorGears::blue);
 
 // Declares the clamp piston and sets it to adi port G
 pros::adi::DigitalOut ClampPistons('E');
@@ -51,7 +51,7 @@ lemlib::ControllerSettings angular_controller(2.52, // proportional gain (kP)
                                               0, // small error range timeout, in milliseconds
                                               0, // large error range, in inches
                                               0, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew) 
+                                              0 // maximum acceleration (slew)
 );
 
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
@@ -65,7 +65,7 @@ lemlib::Chassis chassis(drivetrain,
                         lateral_controller,
                         angular_controller,
                         sensors,
-                        nullptr, 
+                        nullptr,
                         nullptr
 );
 

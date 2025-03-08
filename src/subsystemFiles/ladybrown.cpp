@@ -24,7 +24,7 @@ void LadybrownSwitch(bool increase) {
 }
 
 void LadybrownTask(void * param) {
-    // Variable representing the ladybrown task
+    // Variable representing the ladybrown task 
     pros::Task task = pros::Task::current();
 
     // The angle (in degrees) for each position
