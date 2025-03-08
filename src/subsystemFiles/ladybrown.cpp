@@ -30,7 +30,7 @@ void LadybrownTask(void * param) {
     // The angle (in degrees) for each position
     const float position1 = 350;
     const float position2 = 317.50;
-    const float position3 = 198.52;
+    const float position3 = 203;
 
     // Constant variable that is multiplied by the ladybrown angle error to determine ladybrown motor voltage
     const float kP = 150;
@@ -47,7 +47,7 @@ void LadybrownTask(void * param) {
 
         // Variable to track how long the ladybrown movement is taking
         int timeout = 0;
-        
+
         // Sets the ladybrown target angle based on the target position
         switch(ladybrownPosition) {
             case 1:

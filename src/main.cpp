@@ -91,6 +91,8 @@ void opcontrol() {
 	// Initializes the ladybrown task
 	pros::Task ladybrown_task(LadybrownTask, (void*)"PROS");
 
+	int intakeSpeed = 500;
+
 	while (true) {
 		// Tank control scheme
 		int LYAxis = Controller.get_analog(ANALOG_LEFT_Y); // Gets amount forward/backward from left joystick
@@ -114,9 +116,12 @@ void opcontrol() {
 		// 	ladybrown_task.notify();
 		// }
 
+		// if (ladybrownPosition == 2) intakeSpeed = 400;
+		// else intakeSpeed = 500;
+
 		// The intake motor spins forward when R2 is held and spins reverse when R1 is held.
-		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(500);
-		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(-500);
+		if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) IntakeMotor.move_velocity(intakeSpeed);
+		else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) IntakeMotor.move_velocity(intakeSpeed * -1);
 		else IntakeMotor.brake();
 
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) RingRush();
@@ -136,7 +141,7 @@ void opcontrol() {
 			}
 		}
 
-		
+
 		if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
 			driveReversed = !driveReversed;
 			ControllerDisplay();
