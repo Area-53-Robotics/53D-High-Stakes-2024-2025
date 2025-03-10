@@ -218,26 +218,20 @@ Auton blueRingSideAuton(
         // Pick up lone ring stack
         //moveToPose(48, -24, 40, 2000, {.forwards = true, .maxSpeed = 110});
         IntakeMotor.move(-127);
-        moveToPoint(48, -24, 1250, {.forwards = true, .maxSpeed = 90}, false);
         // IntakeSpeed = -127;
-        pros::delay(3000);
-        //IntakeSpeed = 0;
-        IntakeMotor.brake();
+        moveToPoint(48, -24, 1250, {.forwards = true, .maxSpeed = 90}, false);
+        pros::delay(2000);
 
         // Pick up left ring stack
-        chassis.turnToPoint(48, 0, 1250);
-        pros::delay(200);
-        RingRush();
-        pros::delay(200);
-        moveToPoint(48, -13, 1250, {.forwards = true, .maxSpeed = 90}, false);
+        moveToPoint(48, -15, 1250, {.forwards = true, .maxSpeed = 90}, false);
         pros::delay(2000);
-        moveToPoint(48, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
-        RingRushPiston.set_value(0);
-        /*moveToPoint(46, -7.5, 2000, {.forwards = true, .maxSpeed = 90}, false);
+        moveToPoint(42, -15, 2000, {.forwards = true, .maxSpeed = 90}, false);
+
+        /*
         moveToPoint(46, -7.5, 2000, {.forwards = true, .maxSpeed = 90}, false);
         pros::delay(1500);*/
 
-         moveToPoint(48, -20, 1250, {.forwards = false, .maxSpeed = 90}, false);
+        moveToPoint(48, -20, 1250, {.forwards = false, .maxSpeed = 90}, false);
 
         //moveToPoint(53, -24, 1250, {.forwards = false, .maxSpeed = 90}, false);
 
